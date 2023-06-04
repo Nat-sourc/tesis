@@ -30,6 +30,54 @@ class _TaskFistState extends State<TaskFist> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset(
+                  "assets/img/fist.png",
+                ),
+              ],
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Tarea puño",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'RobotoMono-Bold',
+                        fontSize: 30))
+              ],
+            ),
+            const Row(
+              children: [
+                SizedBox(
+                  width: 30.0,
+                  height: 50.0,
+                )
+              ],
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Text(
+                      "Abrir y cerrar la mano haciendo un movimiento de puño",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'RobotoMono-Bold',
+                          fontSize: 18)),
+                )
+              ],
+            ),
+            const Row(
+              children: [
+                SizedBox(
+                  width: 30.0,
+                  height: 50.0,
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 ElevatedButton(
                   onPressed: () async {
                     //await iniciarCamara();

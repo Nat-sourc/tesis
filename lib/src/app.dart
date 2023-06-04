@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nombre_del_proyecto/src/blocs/camera/camera_bloc.dart';
 import 'package:nombre_del_proyecto/src/blocs/camera/camera_state.dart';
-import 'package:nombre_del_proyecto/src/components/cameraExampleHome.dart';
+import 'package:nombre_del_proyecto/src/components/cameraComponent.dart';
+import 'package:nombre_del_proyecto/src/components/cameraScreen.dart';
 import 'package:nombre_del_proyecto/src/pages/bradicinesia.dart';
 import 'package:nombre_del_proyecto/src/pages/home.dart';
 import 'package:nombre_del_proyecto/src/pages/taskFist.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         "/": (context) => const Home(),
         "/bradicinesia": (context) => const Bradicinesia(),
         "/taskFist": (context) => const TaskFist(),
-        "/camera": (context) => const CameraExampleHome(),
+        "/camera": (context) => const CameraComponent(),
+        "/cameraScreen": (context) => CameraScreen(),
       },
     ));
   }

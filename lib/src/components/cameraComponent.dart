@@ -13,17 +13,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nombre_del_proyecto/src/blocs/camera/camera_bloc.dart';
 import 'package:nombre_del_proyecto/src/blocs/camera/camera_event.dart';
 import 'package:nombre_del_proyecto/src/blocs/camera/camera_state.dart';
+import 'package:nombre_del_proyecto/src/components/cameraScreen.dart';
 import 'package:nombre_del_proyecto/src/components/titleImg.dart';
 import 'package:video_player/video_player.dart';
 
 /// Camera example home widget.
-class CameraExampleHome extends StatefulWidget {
+class CameraComponent extends StatefulWidget {
   /// Default Constructor
-  const CameraExampleHome({super.key});
+  const CameraComponent({super.key});
 
   @override
-  State<CameraExampleHome> createState() {
-    return _CameraExampleHomeState();
+  State<CameraComponent> createState() {
+    return _CameraComponentState();
   }
 }
 
@@ -48,7 +49,7 @@ void _logError(String code, String? message) {
   print('Error: $code${message == null ? '' : '\nError Message: $message'}');
 }
 
-class _CameraExampleHomeState extends State<CameraExampleHome>
+class _CameraComponentState extends State<CameraComponent>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   late CameraBloc cameraBloc; 
   CameraController? controller;
@@ -163,19 +164,34 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       backgroundColor: Colors.white,
       body: Container(
           padding: const EdgeInsets.all(10),
-          child: Column(children: [
+          child: ListView(children: [
             const Row(
               children: [
                 SizedBox(
                   width: 30.0,
-                  height: 100.0,
+                  height: 200.0,
                 )
               ],
             ),
-            const TitleImg(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              children: [ 
+                Image.asset(
+                  "assets/img/video.png",
+                ),
+              ],
+            ),
+            const Row(
               children: [
+                SizedBox(
+                  width: 30.0,
+                  height: 50.0,
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [ 
                 ElevatedButton(
                   onPressed: () async {
                       await iniciarCamara();
@@ -186,7 +202,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
                     minimumSize: Size(350, 50),
                     shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                   ),
-                  child: const Text("inicialicemos",
+                  child: const Text("Iniciar cámara",
                       style: TextStyle(
                           fontFamily: 'RobotoMono-Bold',
                           fontSize: 20)), 
@@ -205,26 +221,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       ),
       body: Column(
         children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(
-                  color:
-                      controller != null && controller!.value.isRecordingVideo
-                          ? Colors.redAccent
-                          : Colors.grey,
-                  width: 3.0,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Center(
-                  child: _cameraPreviewWidget(),
-                ),
-              ),
-            ),
-          ),
+          _controlPantalla(),
           _captureControlRowWidget(),
           _modeControlRowWidget(),
           Padding(
@@ -241,6 +238,28 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     );
   }
 
+  Widget _controlPantalla(){
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black,
+          border: Border.all(
+            color:
+                controller != null && controller!.value.isRecordingVideo
+                    ? Colors.redAccent
+                    : Colors.grey,
+            width: 3.0,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(1.0),
+          child: Center(
+            child: _cameraPreviewWidget(),
+          ),
+        ),
+      ),
+    );
+  }
   /// Display the preview from the camera (or a message if the preview is not available).
   Widget _cameraPreviewWidget() {
     final CameraController? cameraController = controller;
@@ -1126,7 +1145,7 @@ class CameraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: CameraExampleHome(),
+      home: CameraComponent(),
     );
   }
 }
