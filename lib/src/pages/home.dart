@@ -96,7 +96,7 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   ElevatedButton(
-                    onPressed: () => {showPantallaBradicinesia("/taskFist")},
+                    onPressed: () => {showPantallaBradicinesia("/bradicinesia")},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 0, 191, 166),
                       minimumSize: const Size(350, 50),
