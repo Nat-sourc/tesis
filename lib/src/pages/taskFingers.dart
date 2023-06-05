@@ -25,7 +25,7 @@ class TaskFingers extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/img/fist.png",
+                  "assets/img/fingers.png",
                 ),
               ],
             ),
@@ -36,7 +36,7 @@ class TaskFingers extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'RobotoMono-Bold',
-                        fontSize: 30))
+                        fontSize: 20))
               ],
             ),
             const Row(

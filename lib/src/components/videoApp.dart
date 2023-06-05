@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:brainFit/src/components/titleImg.dart';
+import 'package:brainFit/src/model/dominio/archivoDB.dart';
+import 'package:brainFit/src/repository/archivoRepo.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -17,13 +19,21 @@ class _VideoAppState extends State<VideoApp> {
   @override
   void initState() {
     super.initState();
-    final File file = File(
-        "/data/user/0/com.example.brainFit/cache/REC2896225834191468493.mp4");
-    _controller = VideoPlayerController.file(file)
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
+    final File file = File("");
+      _controller = VideoPlayerController.file(file)
+        ..initialize().then((_) {
+          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          setState(() {});
+        });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      String name = await getLastVideo();
+      final File file = File(name);
+      _controller = VideoPlayerController.file(file)
+        ..initialize().then((_) {
+          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          setState(() {});
+        });
+    });
   }
 
   @override
@@ -108,6 +118,14 @@ class _VideoAppState extends State<VideoApp> {
         ),
       ),
     );
+  }
+
+  Future<String> getLastVideo() async {
+    String nameUltimoVideo = "";
+    ArchivoRepo archivoRepo = ArchivoRepo();
+    List<ArchivoDB> lista = await archivoRepo.getAll();
+    nameUltimoVideo = lista.last.path.toString();
+    return nameUltimoVideo;
   }
 
   @override
