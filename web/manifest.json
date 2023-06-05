@@ -1,6 +1,6 @@
 {
-    "name": "nombre_del_proyecto",
-    "short_name": "nombre_del_proyecto",
+    "name": "brainFit",
+    "short_name": "brainFit",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,4 +1,4 @@
-package com.example.nombre_del_proyecto
+package com.example.brainFit
 
 import io.flutter.embedding.android.FlutterActivity
 

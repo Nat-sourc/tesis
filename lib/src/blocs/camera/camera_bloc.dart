@@ -1,8 +1,8 @@
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nombre_del_proyecto/src/blocs/camera/camera_event.dart';
-import 'package:nombre_del_proyecto/src/blocs/camera/camera_state.dart';
+import 'package:brainFit/src/blocs/camera/camera_event.dart';
+import 'package:brainFit/src/blocs/camera/camera_state.dart';
 
 class CameraBloc extends Bloc<CameraEvent,CameraState> {
   CameraBloc(

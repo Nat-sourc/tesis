@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "nombre_del_proyecto" "\0"
+            VALUE "FileDescription", "brainFit" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "nombre_del_proyecto" "\0"
+            VALUE "InternalName", "brainFit" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "nombre_del_proyecto.exe" "\0"
-            VALUE "ProductName", "nombre_del_proyecto" "\0"
+            VALUE "OriginalFilename", "brainFit.exe" "\0"
+            VALUE "ProductName", "brainFit" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

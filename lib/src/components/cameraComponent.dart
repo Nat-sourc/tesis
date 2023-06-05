@@ -10,11 +10,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nombre_del_proyecto/src/blocs/camera/camera_bloc.dart';
-import 'package:nombre_del_proyecto/src/blocs/camera/camera_event.dart';
-import 'package:nombre_del_proyecto/src/blocs/camera/camera_state.dart';
-import 'package:nombre_del_proyecto/src/components/cameraScreen.dart';
-import 'package:nombre_del_proyecto/src/components/titleImg.dart';
+import 'package:brainFit/src/blocs/camera/camera_bloc.dart';
+import 'package:brainFit/src/blocs/camera/camera_event.dart';
+import 'package:brainFit/src/blocs/camera/camera_state.dart';
+import 'package:brainFit/src/components/cameraScreen.dart';
+import 'package:brainFit/src/components/titleImg.dart';
+import 'package:brainFit/src/dbsqlite/archivoEntity.dart';
+import 'package:brainFit/src/model/dominio/archivoDB.dart';
+import 'package:brainFit/src/repository/archivoRepo.dart';
 import 'package:video_player/video_player.dart';
 
 /// Camera example home widget.
@@ -51,7 +54,7 @@ void _logError(String code, String? message) {
 
 class _CameraComponentState extends State<CameraComponent>
     with WidgetsBindingObserver, TickerProviderStateMixin {
-  late CameraBloc cameraBloc; 
+  late CameraBloc cameraBloc;
   CameraController? controller;
   XFile? imageFile;
   XFile? videoFile;
@@ -108,16 +111,15 @@ class _CameraComponentState extends State<CameraComponent>
     //iniciarCamara();
   }
 
-
   Future<void> iniciarCamara() async {
-  // Fetch the available cameras before initializing the app.
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    _cameras = await availableCameras();
-  } on CameraException catch (e) {
-    _logError(e.code, e.description);
+    // Fetch the available cameras before initializing the app.
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+      _cameras = await availableCameras();
+    } on CameraException catch (e) {
+      _logError(e.code, e.description);
+    }
   }
-}
 
   @override
   void dispose() {
@@ -147,74 +149,62 @@ class _CameraComponentState extends State<CameraComponent>
 
   @override
   Widget build(BuildContext context) {
-    final forma = 
-      BlocBuilder<CameraBloc, CameraState>(builder: (context,state){
-        if (state is CameraViewState){
-          return getFormaCamera();
-        }
-        else{
-          return getFormaInicioCamara();
-        }
-      });
+    final forma =
+        BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
+      if (state is CameraViewState) {
+        return getFormaCamera();
+      } else {
+        return getFormaInicioCamara();
+      }
+    });
     return forma;
   }
 
-  Widget getFormaInicioCamara(){
+  Widget getFormaInicioCamara() {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-          padding: const EdgeInsets.all(10),
-          child: ListView(children: [
-            const Row(
-              children: [
-                SizedBox(
-                  width: 30.0,
-                  height: 200.0,
-                )
-              ],
+        padding: const EdgeInsets.all(10),
+        child: ListView(children: [
+          const Row(
+            children: [
+              SizedBox(
+                width: 30.0,
+                height: 200.0,
+              )
+            ],
+          ),
+          Image.asset(
+            "assets/img/video.png",
+          ),
+          const Row(
+            children: [
+              SizedBox(
+                width: 30.0,
+                height: 50.0,
+              )
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              await iniciarCamara();
+              cameraBloc.add(CameraViewEvent());
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+              minimumSize: Size(350, 50),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [ 
-                Image.asset(
-                  "assets/img/video.png",
-                ),
-              ],
-            ),
-            const Row(
-              children: [
-                SizedBox(
-                  width: 30.0,
-                  height: 50.0,
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [ 
-                ElevatedButton(
-                  onPressed: () async {
-                      await iniciarCamara();
-                      cameraBloc.add(CameraViewEvent());
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                    minimumSize: Size(350, 50),
-                    shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                  ),
-                  child: const Text("Iniciar cámara",
-                      style: TextStyle(
-                          fontFamily: 'RobotoMono-Bold',
-                          fontSize: 20)), 
-                )
-              ],
-            ),
-      ]),
+            child: const Text("Iniciar cámara",
+                style: TextStyle(fontFamily: 'RobotoMono-Bold', fontSize: 20)),
+          ),
+        ]),
       ),
     );
   }
 
-  Widget getFormaCamera(){
+  Widget getFormaCamera() {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Camera example'),
@@ -238,16 +228,15 @@ class _CameraComponentState extends State<CameraComponent>
     );
   }
 
-  Widget _controlPantalla(){
+  Widget _controlPantalla() {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
           color: Colors.black,
           border: Border.all(
-            color:
-                controller != null && controller!.value.isRecordingVideo
-                    ? Colors.redAccent
-                    : Colors.grey,
+            color: controller != null && controller!.value.isRecordingVideo
+                ? Colors.redAccent
+                : Colors.grey,
             width: 3.0,
           ),
         ),
@@ -260,6 +249,7 @@ class _CameraComponentState extends State<CameraComponent>
       ),
     );
   }
+
   /// Display the preview from the camera (or a message if the preview is not available).
   Widget _cameraPreviewWidget() {
     final CameraController? cameraController = controller;
@@ -909,12 +899,17 @@ class _CameraComponentState extends State<CameraComponent>
   }
 
   void onStopButtonPressed() {
-    stopVideoRecording().then((XFile? file) {
+    stopVideoRecording().then((XFile? file) async {
       if (mounted) {
         setState(() {});
       }
       if (file != null) {
         showInSnackBar('Video recorded to ${file.path}');
+        //EMPEZAMOS A GUARDAR EN BD
+        ArchivoRepo archivoRepo = ArchivoRepo();
+        ArchivoDB archivo = ArchivoDB(idPaciente: "ab123", idDoctor: 0, path:file.path, fecha: "04/06/2023", estado: 0);
+        int id = await archivoRepo.insert(archivo);
+        print("IDENTIFICADOR: " + id.toString());
         videoFile = file;
         _startVideoPlayer();
       }
