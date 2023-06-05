@@ -207,7 +207,8 @@ class _CameraComponentState extends State<CameraComponent>
   Widget getFormaCamera() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Camera example'),
+        backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+        title: const Text('BrainFit Video'),
       ),
       body: Column(
         children: <Widget>[
@@ -351,7 +352,7 @@ class _CameraComponentState extends State<CameraComponent>
           children: <Widget>[
             IconButton(
               icon: const Icon(Icons.flash_on),
-              color: Colors.blue,
+              color: Color.fromARGB(255, 0, 191, 166),
               onPressed: controller != null ? onFlashModeButtonPressed : null,
             ),
             // The exposure and focus mode are currently not supported on the web.
@@ -359,14 +360,14 @@ class _CameraComponentState extends State<CameraComponent>
                 ? <Widget>[
                     IconButton(
                       icon: const Icon(Icons.exposure),
-                      color: Colors.blue,
+                      color: Color.fromARGB(255, 0, 191, 166),
                       onPressed: controller != null
                           ? onExposureModeButtonPressed
                           : null,
                     ),
                     IconButton(
                       icon: const Icon(Icons.filter_center_focus),
-                      color: Colors.blue,
+                      color: Color.fromARGB(255, 0, 191, 166),
                       onPressed:
                           controller != null ? onFocusModeButtonPressed : null,
                     )
@@ -374,14 +375,14 @@ class _CameraComponentState extends State<CameraComponent>
                 : <Widget>[],
             IconButton(
               icon: Icon(enableAudio ? Icons.volume_up : Icons.volume_mute),
-              color: Colors.blue,
+              color: Color.fromARGB(255, 0, 191, 166),
               onPressed: controller != null ? onAudioModeButtonPressed : null,
             ),
             IconButton(
               icon: Icon(controller?.value.isCaptureOrientationLocked ?? false
                   ? Icons.screen_lock_rotation
                   : Icons.screen_rotation),
-              color: Colors.blue,
+              color: Color.fromARGB(255, 0, 191, 166),
               onPressed: controller != null
                   ? onCaptureOrientationLockButtonPressed
                   : null,
@@ -405,8 +406,8 @@ class _CameraComponentState extends State<CameraComponent>
             IconButton(
               icon: const Icon(Icons.flash_off),
               color: controller?.value.flashMode == FlashMode.off
-                  ? Colors.orange
-                  : Colors.blue,
+                  ? Color.fromARGB(255, 0, 191, 166)
+                  : Color.fromARGB(255, 0, 191, 166),
               onPressed: controller != null
                   ? () => onSetFlashModeButtonPressed(FlashMode.off)
                   : null,
@@ -414,8 +415,8 @@ class _CameraComponentState extends State<CameraComponent>
             IconButton(
               icon: const Icon(Icons.flash_auto),
               color: controller?.value.flashMode == FlashMode.auto
-                  ? Colors.orange
-                  : Colors.blue,
+                  ? Color.fromARGB(255, 0, 191, 166)
+                  : Color.fromARGB(255, 0, 191, 166),
               onPressed: controller != null
                   ? () => onSetFlashModeButtonPressed(FlashMode.auto)
                   : null,
@@ -423,8 +424,8 @@ class _CameraComponentState extends State<CameraComponent>
             IconButton(
               icon: const Icon(Icons.flash_on),
               color: controller?.value.flashMode == FlashMode.always
-                  ? Colors.orange
-                  : Colors.blue,
+                  ? Color.fromARGB(255, 0, 191, 166)
+                  : Color.fromARGB(255, 0, 191, 166),
               onPressed: controller != null
                   ? () => onSetFlashModeButtonPressed(FlashMode.always)
                   : null,
@@ -432,8 +433,8 @@ class _CameraComponentState extends State<CameraComponent>
             IconButton(
               icon: const Icon(Icons.highlight),
               color: controller?.value.flashMode == FlashMode.torch
-                  ? Colors.orange
-                  : Colors.blue,
+                  ? Color.fromARGB(255, 0, 191, 166)
+                  : Color.fromARGB(255, 0, 191, 166),
               onPressed: controller != null
                   ? () => onSetFlashModeButtonPressed(FlashMode.torch)
                   : null,
@@ -449,15 +450,15 @@ class _CameraComponentState extends State<CameraComponent>
       // TODO(darrenaustin): Migrate to new API once it lands in stable: https://github.com/flutter/flutter/issues/105724
       // ignore: deprecated_member_use
       primary: controller?.value.exposureMode == ExposureMode.auto
-          ? Colors.orange
-          : Colors.blue,
+          ? Color.fromARGB(255, 0, 191, 166)
+          : Color.fromARGB(255, 0, 191, 166),
     );
     final ButtonStyle styleLocked = TextButton.styleFrom(
       // TODO(darrenaustin): Migrate to new API once it lands in stable: https://github.com/flutter/flutter/issues/105724
       // ignore: deprecated_member_use
       primary: controller?.value.exposureMode == ExposureMode.locked
-          ? Colors.orange
-          : Colors.blue,
+          ? Color.fromARGB(255, 0, 191, 166)
+          : Color.fromARGB(255, 0, 191, 166),
     );
 
     return SizeTransition(
@@ -536,15 +537,15 @@ class _CameraComponentState extends State<CameraComponent>
       // TODO(darrenaustin): Migrate to new API once it lands in stable: https://github.com/flutter/flutter/issues/105724
       // ignore: deprecated_member_use
       primary: controller?.value.focusMode == FocusMode.auto
-          ? Colors.orange
-          : Colors.blue,
+          ? Color.fromARGB(255, 0, 191, 166)
+          : Color.fromARGB(255, 0, 191, 166),
     );
     final ButtonStyle styleLocked = TextButton.styleFrom(
       // TODO(darrenaustin): Migrate to new API once it lands in stable: https://github.com/flutter/flutter/issues/105724
       // ignore: deprecated_member_use
       primary: controller?.value.focusMode == FocusMode.locked
-          ? Colors.orange
-          : Colors.blue,
+          ? Color.fromARGB(255, 0, 191, 166)
+          : Color.fromARGB(255, 0, 191, 166),
     );
 
     return SizeTransition(
@@ -906,14 +907,20 @@ class _CameraComponentState extends State<CameraComponent>
       if (file != null) {
         showInSnackBar('Video recorded to ${file.path}');
         //EMPEZAMOS A GUARDAR EN BD
-        ArchivoRepo archivoRepo = ArchivoRepo();
-        ArchivoDB archivo = ArchivoDB(idPaciente: "ab123", idDoctor: 0, path:file.path, fecha: "04/06/2023", estado: 0);
-        int id = await archivoRepo.insert(archivo);
-        print("IDENTIFICADOR: " + id.toString());
+        await guardarRegistro(file.path);
+        Navigator.of(context).pushNamed('/playVideo');
         videoFile = file;
         _startVideoPlayer();
       }
     });
+  }
+  
+  Future <void> guardarRegistro(String nameFile) async {
+    ArchivoRepo archivoRepo = ArchivoRepo();
+    ArchivoDB archivo = ArchivoDB(idPaciente: "ab123", idDoctor: 0, path:nameFile, fecha: "04/06/2023", estado: 0);
+    int id = await archivoRepo.insert(archivo);
+    print("IDENTIFICADOR: " + id.toString());
+    return;
   }
 
   Future<void> onPausePreviewButtonPressed() async {

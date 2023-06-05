@@ -1,4 +1,5 @@
 import 'package:brainFit/src/components/videoApp.dart';
+import 'package:brainFit/src/pages/taskFingers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         "/camera": (context) => const CameraComponent(),
         "/cameraScreen": (context) => CameraScreen(),
         "/playVideo": (context) => const VideoApp(),
+        "/taskFingers": (context) => const TaskFingers(),
       },
     ));
   }

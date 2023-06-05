@@ -1,16 +1,10 @@
-import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
-import 'package:brainFit/src/components/cameraScreen.dart';
 import 'package:brainFit/src/components/titleImg.dart';
+import 'package:brainFit/src/components/videoApp.dart';
+import 'package:flutter/material.dart';
 
-class TaskFist extends StatefulWidget {
-  const TaskFist({super.key});
+class TaskFingers extends StatelessWidget {
+  const TaskFingers({super.key});
 
-  @override
-  State<TaskFist> createState() => _TaskFistState();
-}
-
-class _TaskFistState extends State<TaskFist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +32,7 @@ class _TaskFistState extends State<TaskFist> {
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Tarea puño",
+                Text("Tarea toque de dedos",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'RobotoMono-Bold',
@@ -58,7 +52,7 @@ class _TaskFistState extends State<TaskFist> {
               children: [
                 Flexible(
                   child: Text(
-                      "Abrir y cerrar la mano haciendo un movimiento de puño",
+                      "Abrir y cerrar con los dedos de la mano",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,
@@ -96,4 +90,3 @@ class _TaskFistState extends State<TaskFist> {
     );
   }
 }
-

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:brainFit/src/components/titleImg.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -16,7 +17,8 @@ class _VideoAppState extends State<VideoApp> {
   @override
   void initState() {
     super.initState();
-    final File file = File("/data/user/0/com.example.brainFit/cache/REC3445168167459512160.mp4");
+    final File file = File(
+        "/data/user/0/com.example.brainFit/cache/REC2896225834191468493.mp4");
     _controller = VideoPlayerController.file(file)
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
@@ -27,17 +29,72 @@ class _VideoAppState extends State<VideoApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Video Demo',
+      title: 'Video brainFit',
       home: Scaffold(
-        body: Center(
-          child: _controller.value.isInitialized
+        body: ListView(padding: const EdgeInsets.all(10), children: [
+          const SizedBox(
+            width: 30.0,
+            height: 40.0,
+          ),
+          const TitleImg(),
+          const SizedBox(
+            width: 30.0,
+            height: 40.0,
+          ),
+          _controller.value.isInitialized
               ? AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 )
               : Container(),
-        ),
+          const SizedBox(
+            width: 30.0,
+            height: 40.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  //await iniciarCamara();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushNamed('/camera');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+                  minimumSize: const Size(50, 50),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                child: const Text("Nuevo",
+                    style:
+                        TextStyle(fontFamily: 'RobotoMono-Bold', fontSize: 12)),
+              ),
+              const SizedBox(
+                width: 10.0,
+                height: 10.0,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  //await iniciarCamara();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushNamed('/taskFingers');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+                  minimumSize: const Size(50, 50),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                child: const Text("Seguir",
+                    style:
+                        TextStyle(fontFamily: 'RobotoMono-Bold', fontSize: 12)),
+              ),
+            ],
+          )
+        ]),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 0, 191, 166),
           onPressed: () {
             setState(() {
               _controller.value.isPlaying
