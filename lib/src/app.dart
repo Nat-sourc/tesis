@@ -10,6 +10,8 @@ import 'package:brainFit/src/components/cameraScreen.dart';
 import 'package:brainFit/src/pages/bradicinesia.dart';
 import 'package:brainFit/src/pages/home.dart';
 import 'package:brainFit/src/pages/taskFist.dart';
+import 'package:brainFit/src/pages/login_register_page.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,6 +39,7 @@ class MyApp extends StatelessWidget {
         "/cameraScreen": (context) => CameraScreen(),
         "/playVideo": (context) => const VideoApp(),
         "/taskFingers": (context) => const TaskFingers(),
+        "/login": (context) => const LoginPage(),
       },
     ));
   }
