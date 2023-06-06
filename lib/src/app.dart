@@ -1,4 +1,5 @@
 import 'package:brainFit/src/components/videoApp.dart';
+import 'package:brainFit/src/pages/listVideos.dart';
 import 'package:brainFit/src/pages/taskFingers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         "/playVideo": (context) => const VideoApp(),
         "/taskFingers": (context) => const TaskFingers(),
         "/login": (context) => const LoginPage(),
+        "/listVideo": (context) => const ListVideos(),
       },
     ));
   }
