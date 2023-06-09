@@ -1,4 +1,5 @@
 import 'package:brainFit/src/components/videoApp.dart';
+import 'package:brainFit/src/pages/createPatient.dart';
 import 'package:brainFit/src/pages/listVideos.dart';
 import 'package:brainFit/src/pages/taskFingers.dart';
 import 'package:camera/camera.dart';
@@ -12,7 +13,8 @@ import 'package:brainFit/src/pages/bradicinesia.dart';
 import 'package:brainFit/src/pages/home.dart';
 import 'package:brainFit/src/pages/taskFist.dart';
 import 'package:brainFit/src/pages/login_register_page.dart';
-
+import 'package:brainFit/src/pages/principal.dart';
+import 'package:brainFit/src/pages/listPatient.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -42,6 +44,9 @@ class MyApp extends StatelessWidget {
         "/taskFingers": (context) => const TaskFingers(),
         "/login": (context) => const LoginPage(),
         "/listVideo": (context) => const ListVideos(),
+        "/principalPage": (context) => const principal(),
+        "/createPatient": (context) => const CreatePatient(),
+        "/listPatient": (context) => const ListPatient(),
       },
     ));
   }

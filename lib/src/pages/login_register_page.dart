@@ -24,12 +24,12 @@ class _LoginPageState extends State<LoginPage> {
         password: _controllerPassword.text,
       );
       // Navigate to "bradicinesis" page
-      Navigator.pushNamed(context, "/bradicinesia");
+      Navigator.pushNamed(context, "/principalPage");
       Fluttertoast.showToast(
         msg: 'Bienvenido',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
+        backgroundColor: Color.fromARGB(255, 45, 205, 144),
         textColor: Colors.white,
       );
     } on FirebaseAuthException catch (e) {
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         msg: 'Error de autenticación: $errorMessage',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
+        backgroundColor: Color.fromARGB(255, 45, 205, 144),
         textColor: Colors.white,
       );
     }

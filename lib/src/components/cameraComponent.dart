@@ -74,7 +74,7 @@ class _CameraComponentState extends State<CameraComponent>
   double _maxAvailableZoom = 1.0;
   double _currentScale = 1.0;
   double _baseScale = 1.0;
-
+  
   // Counting pointers (number of user fingers on screen)
   int _pointers = 0;
 
