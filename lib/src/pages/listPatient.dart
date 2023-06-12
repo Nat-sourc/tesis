@@ -13,6 +13,8 @@ class ListPatient extends StatefulWidget {
 class _ListPatientState extends State<ListPatient> {
   String? selectedCedula;
   String searchText = '';
+  bool isBradicinesisButtonEnabled = false;
+  bool isDualTaskButtonEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +59,13 @@ class _ListPatientState extends State<ListPatient> {
               const SizedBox(
                 height: 20.0,
               ),
-              SingleChildScrollView( // Añadida una barra de desplazamiento
+              SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance.collection('pacientes').snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      final pacientes = snapshot.data?.docs; // Add null check here
+                      final pacientes = snapshot.data?.docs;
                       final filteredPacientes = pacientes?.where((paciente) {
                         final cedula = paciente['id'].toString().toLowerCase();
                         return cedula.contains(searchText);
@@ -73,19 +75,21 @@ class _ListPatientState extends State<ListPatient> {
                           filteredPacientes?.length ?? 0,
                           (index) {
                             final paciente = filteredPacientes?[index];
-                            final cedula = paciente?['id'];
-                            final isGray = cedula.toString().contains('gray'); // Example condition for gray color
+                            final idPatient = paciente?['id'];
+                            final isGray = idPatient.toString().contains('gray');
                             final color = isGray ? Colors.grey : Colors.white;
-                            final isSelected = cedula == selectedCedula;
+                            final isSelected = idPatient == selectedCedula;
 
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  selectedCedula = cedula;
+                                  selectedCedula = idPatient;
+                                  isBradicinesisButtonEnabled = true;
+                                  isDualTaskButtonEnabled = true;
                                 });
                               },
                               child: Container(
-                                margin: const EdgeInsets.only(bottom: 10.0), // Espacio entre cada cuadrado
+                                margin: const EdgeInsets.only(bottom: 10.0),
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: Colors.black,
@@ -98,7 +102,7 @@ class _ListPatientState extends State<ListPatient> {
                                   color: isGray ? const Color.fromARGB(255, 198, 183, 183) : color,
                                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                                   child: Text(
-                                    cedula.toString(),
+                                    idPatient.toString(),
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: isSelected ? Color.fromARGB(255, 44, 195, 190) : Colors.black,
@@ -124,7 +128,9 @@ class _ListPatientState extends State<ListPatient> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () => {showPantallaBradicinesia("/bradicinesia")},
+                    onPressed: isBradicinesisButtonEnabled && selectedCedula != null
+                        ? () => showPantallaBradicinesia("/bradicinesia", selectedCedula!)
+                        : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 0, 191, 166),
                       minimumSize: const Size(150, 50),
@@ -142,7 +148,9 @@ class _ListPatientState extends State<ListPatient> {
                   ),
                   const SizedBox(width: 10.0),
                   ElevatedButton(
-                    onPressed: () => {showPantallaBradicinesia("")},
+                    onPressed: isDualTaskButtonEnabled && selectedCedula != null
+                        ? () => showPantallaBradicinesia("", selectedCedula!)
+                        : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 0, 191, 166),
                       minimumSize: const Size(150, 50),
@@ -167,7 +175,7 @@ class _ListPatientState extends State<ListPatient> {
     );
   }
 
-  void showPantallaBradicinesia(String ruta) {
-    Navigator.of(context).pushNamed(ruta);
+  void showPantallaBradicinesia(String ruta, String? idPaciente) {
+    Navigator.of(context).pushNamed(ruta, arguments: idPaciente);
   }
 }

@@ -19,12 +19,12 @@ import 'package:brainFit/src/dbsqlite/archivoEntity.dart';
 import 'package:brainFit/src/model/dominio/archivoDB.dart';
 import 'package:brainFit/src/repository/archivoRepo.dart';
 import 'package:video_player/video_player.dart';
-
+import 'package:intl/intl.dart';
 /// Camera example home widget.
 class CameraComponent extends StatefulWidget {
   /// Default Constructor
-  const CameraComponent({super.key});
-
+   const CameraComponent({super.key});
+  
   @override
   State<CameraComponent> createState() {
     return _CameraComponentState();
@@ -74,7 +74,7 @@ class _CameraComponentState extends State<CameraComponent>
   double _maxAvailableZoom = 1.0;
   double _currentScale = 1.0;
   double _baseScale = 1.0;
-  
+  String? parametersValue="";
   // Counting pointers (number of user fingers on screen)
   int _pointers = 0;
 
@@ -149,6 +149,7 @@ class _CameraComponentState extends State<CameraComponent>
 
   @override
   Widget build(BuildContext context) {
+    parametersValue = ModalRoute.of(context)?.settings.arguments as String?;
     final forma =
         BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
       if (state is CameraViewState) {
@@ -917,7 +918,10 @@ class _CameraComponentState extends State<CameraComponent>
   
   Future <void> guardarRegistro(String nameFile) async {
     ArchivoRepo archivoRepo = ArchivoRepo();
-    ArchivoDB archivo = ArchivoDB(idPaciente: "ab123", idDoctor: 0, path:nameFile, fecha: "04/06/2023", estado: 0);
+    // Obtener la fecha y hora actual
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+    ArchivoDB archivo = ArchivoDB(idPaciente: parametersValue, idDoctor: 0, path:nameFile, fecha: formattedDate, estado: 0);
     int id = await archivoRepo.insert(archivo);
     print("IDENTIFICADOR: " + id.toString());
     return;

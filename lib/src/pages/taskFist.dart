@@ -4,6 +4,7 @@ import 'package:brainFit/src/components/cameraScreen.dart';
 import 'package:brainFit/src/components/titleImg.dart';
 
 class TaskFist extends StatefulWidget {
+
   const TaskFist({super.key});
 
   @override
@@ -13,6 +14,7 @@ class TaskFist extends StatefulWidget {
 class _TaskFistState extends State<TaskFist> {
   @override
   Widget build(BuildContext context) {
+    final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -75,11 +77,22 @@ class _TaskFistState extends State<TaskFist> {
                 )
               ],
             ),
+            Text(
+              "ID del paciente: $parameterValue", // Impresión del idPatient
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'RobotoMono-Bold',
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
             ElevatedButton(
                   onPressed: () async {
                     //await iniciarCamara();
                     // ignore: use_build_context_synchronously
-                    Navigator.of(context).pushNamed('/camera');
+                    Navigator.of(context).pushNamed('/camera', arguments: parameterValue);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 0, 191, 166),
