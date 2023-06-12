@@ -24,7 +24,6 @@ import 'package:intl/intl.dart';
 class CameraComponent extends StatefulWidget {
    final String? parameterValue;
   final VoidCallback? onStopButtonPressed;
-
   const CameraComponent({Key? key, this.parameterValue, this.onStopButtonPressed}) : super(key: key);
 
   

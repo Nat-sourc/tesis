@@ -17,7 +17,7 @@ class _CameraHandState extends State<CameraHand> {
     return CameraComponent(
       parameterValue: parameterValue,
       onStopButtonPressed: () {
-        Navigator.pushNamed(context, '/videoFingers',arguments: parameterValue);
+        Navigator.pushNamed(context, '/videoHand',arguments: parameterValue);
       },
     );
   }

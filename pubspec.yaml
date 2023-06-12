@@ -47,6 +47,11 @@ dependencies:
   equatable: ^2.0.5
   flutter_onedrive: ^1.4.2
   sqflite: ^2.2.8+4
+  archive: ^3.1.2
+  firebase_storage: ^11.2.2
+  image_picker: ^0.8.8
+  multi_image_picker: ^4.8.1
+  file_picker: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +84,7 @@ flutter:
     - assets/img/bradicinesia.png
     - assets/img/fingers.png
     - assets/img/third.png
+    - assets/img/upload.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
