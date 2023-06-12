@@ -7,7 +7,9 @@ class TaskFingers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
     return Scaffold(
+      
       backgroundColor: Colors.white,
       body: Container(
           padding: const EdgeInsets.all(10),
@@ -69,11 +71,22 @@ class TaskFingers extends StatelessWidget {
                 )
               ],
             ),
+            Text(
+              "ID del paciente: $parameterValue", // Impresión del idPatient
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'RobotoMono-Bold',
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
             ElevatedButton(
                   onPressed: () async {
                     //await iniciarCamara();
                     // ignore: use_build_context_synchronously
-                    Navigator.of(context).pushNamed('/camera');
+                    Navigator.of(context).pushNamed('/cameraFingers',arguments:parameterValue);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 0, 191, 166),

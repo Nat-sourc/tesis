@@ -22,8 +22,11 @@ import 'package:video_player/video_player.dart';
 import 'package:intl/intl.dart';
 /// Camera example home widget.
 class CameraComponent extends StatefulWidget {
-  /// Default Constructor
-   const CameraComponent({super.key});
+   final String? parameterValue;
+  final VoidCallback? onStopButtonPressed;
+
+  const CameraComponent({Key? key, this.parameterValue, this.onStopButtonPressed}) : super(key: key);
+
   
   @override
   State<CameraComponent> createState() {
@@ -74,10 +77,9 @@ class _CameraComponentState extends State<CameraComponent>
   double _maxAvailableZoom = 1.0;
   double _currentScale = 1.0;
   double _baseScale = 1.0;
-  String? parametersValue="";
   // Counting pointers (number of user fingers on screen)
   int _pointers = 0;
-
+  
   @override
   void initState() {
     cameraBloc = BlocProvider.of<CameraBloc>(context);
@@ -149,7 +151,7 @@ class _CameraComponentState extends State<CameraComponent>
 
   @override
   Widget build(BuildContext context) {
-    parametersValue = ModalRoute.of(context)?.settings.arguments as String?;
+   
     final forma =
         BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
       if (state is CameraViewState) {
@@ -900,16 +902,17 @@ class _CameraComponentState extends State<CameraComponent>
     });
   }
 
-  void onStopButtonPressed() {
+  void onStopButtonPressed() async {
     stopVideoRecording().then((XFile? file) async {
       if (mounted) {
         setState(() {});
       }
       if (file != null) {
         showInSnackBar('Video recorded to ${file.path}');
-        //EMPEZAMOS A GUARDAR EN BD
         await guardarRegistro(file.path);
-        Navigator.of(context).pushNamed('/playVideo');
+        if (widget.onStopButtonPressed != null) {
+          widget.onStopButtonPressed!(); // Llamada a la función en CameraBradicinesia
+        }
         videoFile = file;
         _startVideoPlayer();
       }
@@ -921,7 +924,7 @@ class _CameraComponentState extends State<CameraComponent>
     // Obtener la fecha y hora actual
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy').format(now);
-    ArchivoDB archivo = ArchivoDB(idPaciente: parametersValue, idDoctor: 0, path:nameFile, fecha: formattedDate, estado: 0);
+    ArchivoDB archivo = ArchivoDB(idPaciente: widget.parameterValue, idDoctor: 0, path:nameFile, fecha: formattedDate, estado: 0);
     int id = await archivoRepo.insert(archivo);
     print("IDENTIFICADOR: " + id.toString());
     return;

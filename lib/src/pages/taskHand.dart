@@ -1,17 +1,16 @@
-import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:brainFit/src/components/cameraScreen.dart';
-import 'package:brainFit/src/components/titleImg.dart';
 
-class TaskFist extends StatefulWidget {
+import '../components/titleImg.dart';
 
-  const TaskFist({super.key});
+class TaskHand extends StatefulWidget {
+  const TaskHand({super.key});
 
   @override
-  State<TaskFist> createState() => _TaskFistState();
+  State<TaskHand> createState() => _TaskHandState();
 }
 
-class _TaskFistState extends State<TaskFist> {
+class _TaskHandState extends State<TaskHand> {
   @override
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
@@ -33,18 +32,18 @@ class _TaskFistState extends State<TaskFist> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/img/fist.png",
+                  "assets/img/third.png",
                 ),
               ],
             ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Tarea puño",
+                Text("Tarea movimiento de la mano",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'RobotoMono-Bold',
-                        fontSize: 30))
+                        fontSize: 20))
               ],
             ),
             const Row(
@@ -60,7 +59,7 @@ class _TaskFistState extends State<TaskFist> {
               children: [
                 Flexible(
                   child: Text(
-                      "Abrir y cerrar la mano haciendo un movimiento de puño",
+                      "Mover la mano de un lado para otro",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,
@@ -92,7 +91,7 @@ class _TaskFistState extends State<TaskFist> {
                   onPressed: () async {
                     //await iniciarCamara();
                     // ignore: use_build_context_synchronously
-                    Navigator.of(context).pushNamed('/cameraBradicinesia', arguments: parameterValue);
+                    Navigator.of(context).pushNamed('/cameraHand', arguments: parameterValue);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 0, 191, 166),
@@ -109,4 +108,3 @@ class _TaskFistState extends State<TaskFist> {
     );
   }
 }
-

@@ -1,7 +1,15 @@
 import 'package:brainFit/src/components/videoApp.dart';
+import 'package:brainFit/src/pages/cameraBradicinesia.dart';
+import 'package:brainFit/src/pages/cameraFingers.dart';
+import 'package:brainFit/src/pages/cameraHand.dart';
 import 'package:brainFit/src/pages/createPatient.dart';
 import 'package:brainFit/src/pages/listVideos.dart';
 import 'package:brainFit/src/pages/taskFingers.dart';
+import 'package:brainFit/src/pages/taskHand.dart';
+import 'package:brainFit/src/pages/uploadVideo.dart';
+import 'package:brainFit/src/pages/videoBradicinesia.dart';
+import 'package:brainFit/src/pages/videoFingers.dart';
+import 'package:brainFit/src/pages/videoHand.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,11 +50,19 @@ class MyApp extends StatelessWidget {
         "/cameraScreen": (context) => CameraScreen(),
         "/playVideo": (context) => const VideoApp(),
         "/taskFingers": (context) => const TaskFingers(),
+        "/taskHand": (context) => const TaskHand(),
         "/login": (context) => const LoginPage(),
         "/listVideo": (context) => const ListVideos(),
         "/principalPage": (context) => const principal(),
         "/createPatient": (context) => const CreatePatient(),
         "/listPatient": (context) => const ListPatient(),
+        "/cameraBradicinesia": (context) => const CameraBradicinesia(),
+        "/cameraFingers": (context) => const CameraFingers(),
+        "/cameraHand": (context) => const CameraHand(),
+        "/videoBradicinesia": (context) => const VideoBradicinesia(),
+        "/videoFingers": (context) => const VideoFingers(),
+        "/videoHand": (context) => const VideoHand(),
+        "/uploadVideoBradicinesis": (context) => const UploadVideo(),
       },
     ));
   }

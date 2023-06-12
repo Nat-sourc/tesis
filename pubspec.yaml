@@ -78,6 +78,7 @@ flutter:
     - assets/img/video.png
     - assets/img/bradicinesia.png
     - assets/img/fingers.png
+    - assets/img/third.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
