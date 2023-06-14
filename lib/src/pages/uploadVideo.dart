@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:brainFit/src/components/titleImg.dart';
 import 'package:archive/archive_io.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:brainFit/src/model/dominio/archivoDB.dart';
 import 'package:brainFit/src/repository/archivoRepo.dart';
@@ -180,6 +181,12 @@ class _UploadVideoState extends State<UploadVideo> {
       firebase_storage.UploadTask uploadTask = storageRef.putFile(zipFile);
       firebase_storage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+      // Actualizar el atributo completeBradicinesis a true en Firestore
+      await FirebaseFirestore.instance
+          .collection('pacientes')
+          .doc(idPatient)
+          .update({'completeBradicinesis': true});
 
       showDialog(
         context: context,

@@ -24,6 +24,7 @@ class _CreatePatientState extends State<CreatePatient> {
       _firestore.collection('pacientes').doc(id).set({
         'id': id,
         'genero': _selectedGender,
+        'completeBradicinesis': false,
       }).then((value) {
         // Éxito al guardar los datos
         print('Paciente agregado exitosamente');

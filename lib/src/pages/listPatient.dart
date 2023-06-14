@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:flutter/material.dart';
 import 'package:brainFit/src/components/titleImg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,10 +22,10 @@ class _ListPatientState extends State<ListPatient> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(20),
-          child: ListView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               const TitleImg(),
               const SizedBox(
@@ -60,65 +60,82 @@ class _ListPatientState extends State<ListPatient> {
                 height: 20.0,
               ),
               SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection('pacientes').snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final pacientes = snapshot.data?.docs;
-                      final filteredPacientes = pacientes?.where((paciente) {
-                        final cedula = paciente['id'].toString().toLowerCase();
-                        return cedula.contains(searchText);
-                      }).toList();
-                      return Column(
-                        children: List.generate(
-                          filteredPacientes?.length ?? 0,
-                          (index) {
-                            final paciente = filteredPacientes?[index];
-                            final idPatient = paciente?['id'];
-                            final isGray = idPatient.toString().contains('gray');
-                            final color = isGray ? Colors.grey : Colors.white;
-                            final isSelected = idPatient == selectedCedula;
+                child: Scrollbar(
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('pacientes')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final pacientes = snapshot.data?.docs;
+                        final filteredPacientes = pacientes?.where((paciente) {
+                          final cedula =
+                              paciente['id'].toString().toLowerCase();
+                          return cedula.contains(searchText);
+                        }).toList();
+                        return Scrollbar(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: filteredPacientes?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              final paciente = filteredPacientes?[index];
+                              final idPatient = paciente?['id'];
+                              final isGray =
+                                  idPatient.toString().contains('gray');
+                              final color = isGray ? Colors.grey : Colors.white;
+                              final isSelected = idPatient == selectedCedula;
+                              final completeBradicinesis = paciente?['completeBradicinesis'];
 
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  selectedCedula = idPatient;
-                                  isBradicinesisButtonEnabled = true;
-                                  isDualTaskButtonEnabled = true;
-                                });
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(bottom: 10.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: isSelected ? 2 : 0,
-                                  ),
-                                ),
-                                height: 40,
-                                width: 300,
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedCedula = idPatient;
+                                    isBradicinesisButtonEnabled =
+                                        completeBradicinesis == false; // Habilitar si completeBradicinesis es false
+                                    isDualTaskButtonEnabled = true;
+                                  });
+                                },
                                 child: Container(
-                                  color: isGray ? const Color.fromARGB(255, 198, 183, 183) : color,
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Text(
-                                    idPatient.toString(),
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: isSelected ? Color.fromARGB(255, 44, 195, 190) : Colors.black,
+                                  margin: const EdgeInsets.only(bottom: 10.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black,
+                                      width: isSelected ? 2 : 0,
+                                    ),
+                                  ),
+                                  height: 40,
+                                  child: Container(
+                                    color: isGray
+                                        ? const Color.fromARGB(
+                                            255, 198, 183, 183)
+                                        : color,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Center(
+                                      child: Text(
+                                        idPatient.toString(),
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: isSelected
+                                              ? Color.fromARGB(
+                                                  255, 44, 195, 190)
+                                              : Colors.black,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('Error al obtener la lista de pacientes');
-                    }
-                    return CircularProgressIndicator();
-                  },
+                              );
+                            },
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('Error al obtener la lista de pacientes');
+                      }
+                      return CircularProgressIndicator();
+                    },
+                  ),
                 ),
               ),
               const SizedBox(
@@ -128,9 +145,11 @@ class _ListPatientState extends State<ListPatient> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: isBradicinesisButtonEnabled && selectedCedula != null
-                        ? () => showPantallaBradicinesia("/bradicinesia", selectedCedula!)
-                        : null,
+                    onPressed:
+                        isBradicinesisButtonEnabled && selectedCedula != null
+                            ? () => showPantallaBradicinesia(
+                                "/bradicinesia", selectedCedula!)
+                            : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 0, 191, 166),
                       minimumSize: const Size(150, 50),
