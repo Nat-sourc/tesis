@@ -19,6 +19,9 @@ class _VideoBradicinesiaState extends State<VideoBradicinesia> {
       navegate: () {
         Navigator.pushNamed(context, '/taskFingers',arguments: parameterValue);
       },
+      navegateNew: () {
+        Navigator.pushNamed(context, '/cameraBradicinesia',arguments: parameterValue);
+      },
     );
   }
 

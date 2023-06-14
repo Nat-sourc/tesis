@@ -19,6 +19,9 @@ class _VideoFingersState extends State<VideoFingers> {
       navegate: () {
         Navigator.pushNamed(context, '/taskHand',arguments: parameterValue);
       },
+      navegateNew: () {
+        Navigator.pushNamed(context, '/cameraFingers',arguments: parameterValue);
+      },
     );
   }
 }

@@ -8,8 +8,9 @@ import 'package:video_player/video_player.dart';
 
 class VideoApp extends StatefulWidget {
   final VoidCallback? navegate;
+  final VoidCallback? navegateNew;
   /// Default Constructor
-  const VideoApp({Key? key, this.navegate}) : super(key: key);
+  const VideoApp({Key? key, this.navegate,this.navegateNew}) : super(key: key);
 
   @override
   State<VideoApp> createState() => _VideoAppState();
@@ -70,7 +71,7 @@ class _VideoAppState extends State<VideoApp> {
                 onPressed: () async {
                   //await iniciarCamara();
                   // ignore: use_build_context_synchronously
-                  Navigator.of(context).pushNamed('/camera');
+                  widget.navegateNew!();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 0, 191, 166),

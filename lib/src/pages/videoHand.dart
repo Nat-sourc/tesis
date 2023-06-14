@@ -19,6 +19,9 @@ class _VideoHandState extends State<VideoHand> {
       navegate: () {
         Navigator.pushNamed(context, '/uploadVideoBradicinesis',arguments: parameterValue);
       },
+      navegateNew: () {
+        Navigator.pushNamed(context, '/cameraHand',arguments: parameterValue);
+      },
     );
   }
 }

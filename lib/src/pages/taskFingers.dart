@@ -11,7 +11,7 @@ class TaskFingers extends StatelessWidget {
     return Scaffold(
       
       backgroundColor: Colors.white,
-      body: Container(
+      body: SingleChildScrollView(
           padding: const EdgeInsets.all(10),
           child: Column(children: [
             const Row(
