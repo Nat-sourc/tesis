@@ -20,13 +20,18 @@ import 'package:brainFit/src/model/dominio/archivoDB.dart';
 import 'package:brainFit/src/repository/archivoRepo.dart';
 import 'package:video_player/video_player.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as path_provider;
+
 /// Camera example home widget.
 class CameraComponent extends StatefulWidget {
-   final String? parameterValue;
+  final String? parameterValue;
   final VoidCallback? onStopButtonPressed;
-  const CameraComponent({Key? key, this.parameterValue, this.onStopButtonPressed}) : super(key: key);
+  final String? nameTask;
+  const CameraComponent(
+      {Key? key, this.parameterValue, this.nameTask, this.onStopButtonPressed})
+      : super(key: key);
 
-  
   @override
   State<CameraComponent> createState() {
     return _CameraComponentState();
@@ -78,7 +83,6 @@ class _CameraComponentState extends State<CameraComponent>
   double _baseScale = 1.0;
   // Counting pointers (number of user fingers on screen)
   int _pointers = 0;
-  
   @override
   void initState() {
     cameraBloc = BlocProvider.of<CameraBloc>(context);
@@ -150,7 +154,6 @@ class _CameraComponentState extends State<CameraComponent>
 
   @override
   Widget build(BuildContext context) {
-   
     final forma =
         BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
       if (state is CameraViewState) {
@@ -743,17 +746,18 @@ class _CameraComponentState extends State<CameraComponent>
 
     try {
       await cameraController.initialize();
-      await Future.wait(<Future<Object?>>[
+      await calibrateCamera(cameraController, context);
+      await Future.wait(<Future<void>>[
         // The exposure mode is currently not supported on the web.
         ...!kIsWeb
-            ? <Future<Object?>>[
+            ? <Future<void>>[
                 cameraController.getMinExposureOffset().then(
                     (double value) => _minAvailableExposureOffset = value),
                 cameraController
                     .getMaxExposureOffset()
                     .then((double value) => _maxAvailableExposureOffset = value)
               ]
-            : <Future<Object?>>[],
+            : <Future<void>>[],
         cameraController
             .getMaxZoomLevel()
             .then((double value) => _maxAvailableZoom = value),
@@ -794,6 +798,57 @@ class _CameraComponentState extends State<CameraComponent>
     if (mounted) {
       setState(() {});
     }
+  }
+
+  Future<void> calibrateCamera(
+      CameraController cameraController, BuildContext context) async {
+    ArchivoRepo archivoRepo = ArchivoRepo();
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16.0),
+                Text('Calibrando...'),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    print("llego a calibrado");
+    final String? idPaciente = widget.parameterValue;
+    // Ejemplo de calibración:
+    if (cameraController.value.isInitialized) {
+      final XFile photo = await cameraController.takePicture();
+      final originalPath = photo.path;
+
+      final directory = await path_provider.getTemporaryDirectory();
+      final fileName = (widget.nameTask ?? '') +'$idPaciente.jpg';
+      final newPath = path.join(directory.path, fileName);
+      final File renamedFile = await File(originalPath).rename(newPath);
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+      print("Foto tomada: ${renamedFile.path}");
+      
+      ArchivoDB archivo = ArchivoDB(
+          idPaciente: widget.parameterValue,
+          idDoctor: 0,
+          path: renamedFile.path,
+          fecha: formattedDate,
+          estado: 0);
+          int id = await archivoRepo.insert(archivo);
+      print("IDENTIFICADOR: " + id.toString());
+    }
+
+    Navigator.of(context, rootNavigator: true).pop();
   }
 
   void onTakePictureButtonPressed() {
@@ -907,8 +962,11 @@ class _CameraComponentState extends State<CameraComponent>
         setState(() {});
       }
       if (file != null) {
+        String additionalText = (widget.nameTask ?? ''); // Texto adicional que deseas agregar al nombre del video
+        String modifiedFileName = '$additionalText${file.name}'; // Nuevo nombre del archivo con el texto adicional
+
         showInSnackBar('Video recorded to ${file.path}');
-        await guardarRegistro(file.path);
+        await guardarRegistro(file.path,modifiedFileName);
         if (widget.onStopButtonPressed != null) {
           widget.onStopButtonPressed!(); // Llamada a la función en CameraBradicinesia
         }
@@ -917,17 +975,45 @@ class _CameraComponentState extends State<CameraComponent>
       }
     });
   }
-  
-  Future <void> guardarRegistro(String nameFile) async {
+
+
+  Future<void> guardarRegistro(String filePath, String additionalText) async {
     ArchivoRepo archivoRepo = ArchivoRepo();
+    
+    // Obtener el nombre original del archivo
+    String originalFileName = path.basename(filePath);
+    
+    // Agregar el texto adicional al nombre del archivo
+    String modifiedFileName = '$additionalText$originalFileName';
+    
+    // Obtener la ruta del directorio de caché
+    Directory cacheDirectory = await path_provider.getTemporaryDirectory();
+    
+    // Construir la nueva ruta del archivo con el directorio de caché y el nombre modificado
+    String newFilePath = path.join(cacheDirectory.path, modifiedFileName);
+    
+    // Mover el archivo a la nueva ruta
+    File file = File(filePath);
+    await file.rename(newFilePath);
+    
     // Obtener la fecha y hora actual
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy').format(now);
-    ArchivoDB archivo = ArchivoDB(idPaciente: widget.parameterValue, idDoctor: 0, path:nameFile, fecha: formattedDate, estado: 0);
+    
+    ArchivoDB archivo = ArchivoDB(
+      idPaciente: widget.parameterValue,
+      idDoctor: 0,
+      path: newFilePath,
+      fecha: formattedDate,
+      estado: 0
+    );
+    
     int id = await archivoRepo.insert(archivo);
     print("IDENTIFICADOR: " + id.toString());
     return;
   }
+
+
 
   Future<void> onPausePreviewButtonPressed() async {
     final CameraController? cameraController = controller;

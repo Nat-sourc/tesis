@@ -14,8 +14,10 @@ class _CameraHandState extends State<CameraHand> {
   @override
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
+    final String name = "pronosup";
     return CameraComponent(
       parameterValue: parameterValue,
+      nameTask: name,
       onStopButtonPressed: () {
         Navigator.pushNamed(context, '/videoHand',arguments: parameterValue);
       },

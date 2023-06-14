@@ -19,14 +19,19 @@ class UploadVideo extends StatefulWidget {
 
 class _UploadVideoState extends State<UploadVideo> {
   List<String> videoPaths = []; // List of selected video paths
+  List<String> imagePaths = []; // List of selected image paths
   late String idPatient; // ID of the patient
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
-      List<ArchivoDB> archivos = await getListVideos([idPatient]);
-      videoPaths = archivos.map((archivo) => archivo.path).whereType<String>().toList();
+      List<ArchivoDB> videoArchivos = await getListVideos([idPatient]);
+      videoPaths = videoArchivos.map((archivo) => archivo.path).whereType<String>().toList();
+
+      List<ArchivoDB> imageArchivos = await getListImages([idPatient]);
+      imagePaths = imageArchivos.map((archivo) => archivo.path).whereType<String>().toList();
+
       setState(() {});
     });
   }
@@ -39,11 +44,11 @@ class _UploadVideoState extends State<UploadVideo> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          const SizedBox(
+            const SizedBox(
               height: 100.0,
             ),
             const Text(
-              "Subir Videos",
+              "Subir Videos e Imágenes",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,
@@ -67,7 +72,7 @@ class _UploadVideoState extends State<UploadVideo> {
               ],
             ),
             ElevatedButton(
-              onPressed: saveVideosAsZip,
+              onPressed: saveVideosAndImagesAsZip,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 0, 191, 166),
                 minimumSize: const Size(350, 50),
@@ -76,7 +81,7 @@ class _UploadVideoState extends State<UploadVideo> {
                 ),
               ),
               child: Text(
-                'Subir videos Paciente: $idPatient',
+                'Subir videos e imágenes del Paciente: $idPatient',
                 style: TextStyle(
                   fontFamily: 'RobotoMono-Bold',
                   fontSize: 13,
@@ -89,8 +94,6 @@ class _UploadVideoState extends State<UploadVideo> {
     );
   }
 
-  
-
   Future<List<ArchivoDB>> getListVideos(List<String> patientIds) async {
     ArchivoRepo archivoRepo = ArchivoRepo();
     List<ArchivoDB> lista = await archivoRepo.getAll();
@@ -101,14 +104,24 @@ class _UploadVideoState extends State<UploadVideo> {
     return filteredList;
   }
 
-  Future<void> saveVideosAsZip() async {
-    if (videoPaths.isEmpty) {
+  Future<List<ArchivoDB>> getListImages(List<String> patientIds) async {
+    ArchivoRepo archivoRepo = ArchivoRepo();
+    List<ArchivoDB> lista = await archivoRepo.getAll();
+
+    List<ArchivoDB> filteredList =
+        lista.where((archivo) => patientIds.contains(archivo.idPaciente)).toList();
+
+    return filteredList;
+  }
+
+  Future<void> saveVideosAndImagesAsZip() async {
+    if (videoPaths.isEmpty && imagePaths.isEmpty) {
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: const Text('Error'),
-            content: const Text('No videos selected.'),
+            content: const Text('No videos or images selected.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -125,6 +138,7 @@ class _UploadVideoState extends State<UploadVideo> {
 
     Archive archive = Archive();
 
+    // Add videos to the archive
     for (int i = 0; i < videoPaths.length; i++) {
       String videoPath = videoPaths[i];
       String videoName = path_provider.basename(videoPath);
@@ -137,9 +151,22 @@ class _UploadVideoState extends State<UploadVideo> {
       archive.addFile(archiveFile);
     }
 
-    Directory? appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    if (appDocumentsDirectory != null) {
-      String zipPath = path_provider.join(appDocumentsDirectory.path, 'bradicinesia.zip');
+    // Add images to the archive
+    for (int i = 0; i < imagePaths.length; i++) {
+      String imagePath = imagePaths[i];
+      String imageName = path_provider.basename(imagePath);
+
+      File imageFile = File(imagePath);
+
+      List<int> imageBytes = await imageFile.readAsBytes();
+      ArchiveFile archiveFile = ArchiveFile(imageName, imageBytes.length, imageBytes);
+
+      archive.addFile(archiveFile);
+    }
+
+    Directory? tempDirectory = await getTemporaryDirectory();
+    if (tempDirectory != null) {
+      String zipPath = path_provider.join(tempDirectory.path, 'bradicinesia.zip');
       File zipFile = File(zipPath);
       if (zipFile.existsSync()) {
         zipFile.deleteSync();
@@ -159,13 +186,13 @@ class _UploadVideoState extends State<UploadVideo> {
         builder: (context) {
           return AlertDialog(
             title: const Text('Success'),
-            content: Text('Los Videos Se Han Subido Correctamente'),
+            content: Text('Los Videos e Imágenes Se Han Subido Correctamente'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                      "/principalPage"
-                    );
+                    "/principalPage",
+                  );
                 },
                 child: const Text('OK'),
               ),
