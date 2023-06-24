@@ -85,15 +85,19 @@ class _ListPatientState extends State<ListPatient> {
                                   idPatient.toString().contains('gray');
                               final color = isGray ? Colors.grey : Colors.white;
                               final isSelected = idPatient == selectedCedula;
-                              final completeBradicinesis = paciente?['completeBradicinesis'];
+                              final completeBradicinesis =
+                                  paciente?['completeBradicinesis'];
+                              final completeTask =
+                                  paciente?['completetask'];
 
                               return GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     selectedCedula = idPatient;
                                     isBradicinesisButtonEnabled =
-                                        completeBradicinesis == false; // Habilitar si completeBradicinesis es false
-                                    isDualTaskButtonEnabled = true;
+                                        completeBradicinesis == false;
+                                    isDualTaskButtonEnabled =
+                                        completeTask == false; // Habilitar si completeTask es false
                                   });
                                 },
                                 child: Container(
@@ -145,11 +149,11 @@ class _ListPatientState extends State<ListPatient> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed:
-                        isBradicinesisButtonEnabled && selectedCedula != null
-                            ? () => showPantallaBradicinesia(
-                                "/bradicinesia", selectedCedula!)
-                            : null,
+                    onPressed: isBradicinesisButtonEnabled &&
+                            selectedCedula != null
+                        ? () => showPantallaBradicinesia(
+                            "/bradicinesia", selectedCedula!)
+                        : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 0, 191, 166),
                       minimumSize: const Size(150, 50),
@@ -167,8 +171,10 @@ class _ListPatientState extends State<ListPatient> {
                   ),
                   const SizedBox(width: 10.0),
                   ElevatedButton(
-                    onPressed: isDualTaskButtonEnabled && selectedCedula != null
-                        ? () => showPantallaBradicinesia("", selectedCedula!)
+                    onPressed: isDualTaskButtonEnabled &&
+                            selectedCedula != null
+                        ? () => showPantallaBradicinesia(
+                            "/buttonsTasks", selectedCedula!)
                         : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 0, 191, 166),

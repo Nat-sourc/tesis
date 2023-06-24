@@ -25,6 +25,10 @@ class _CreatePatientState extends State<CreatePatient> {
         'id': id,
         'genero': _selectedGender,
         'completeBradicinesis': false,
+        'taskaudio': false,
+        'taskmarcha': false,
+        'dualtask': false,
+        'completetask': false,
       }).then((value) {
         // Éxito al guardar los datos
         print('Paciente agregado exitosamente');

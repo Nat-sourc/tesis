@@ -85,6 +85,8 @@ flutter:
     - assets/img/fingers.png
     - assets/img/third.png
     - assets/img/upload.png
+    - assets/img/marcha.png
+    - assets/img/dualTask.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
