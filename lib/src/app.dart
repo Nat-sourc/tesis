@@ -1,4 +1,5 @@
 import 'package:brainFit/src/components/videoApp.dart';
+import 'package:brainFit/src/pages/audioTask.dart';
 import 'package:brainFit/src/pages/button_Task.dart';
 import 'package:brainFit/src/pages/cameraBradicinesia.dart';
 import 'package:brainFit/src/pages/cameraDualTask.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
         "/cameraDual": (context) => const CameraDualTask(),
         "/videoDual": (context) => const VideoDualTask(),
         "/uploadDual": (context) => const UploadVideoDual(),
+        "/audioTask": (context) => const AudioTask(),
       },
     ));
   }

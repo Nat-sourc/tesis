@@ -2,7 +2,7 @@ import 'package:brainFit/src/components/titleImg.dart';
 import 'package:flutter/material.dart';
 
 class Bradicinesia extends StatelessWidget {
- 
+
   const Bradicinesia({super.key});
 
   @override
