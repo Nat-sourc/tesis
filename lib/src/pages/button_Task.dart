@@ -67,7 +67,7 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                         onPressed: isTaskAudioEnabled
                             ? () {
                                 Navigator.of(context).pushNamed(
-                                  "",
+                                  "/audioTask",
                                   arguments: parameterValue,
                                 );
                               }
