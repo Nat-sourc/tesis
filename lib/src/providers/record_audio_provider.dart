@@ -7,6 +7,7 @@ import 'package:brainFit/src/services/permission_management.dart';
 import 'package:brainFit/src/services/storage_management.dart';
 import 'package:brainFit/src/services/toast_services.dart';
 
+
 class RecordAudioProvider extends ChangeNotifier{
   final Record _record = Record();
   bool _isRecording = false;

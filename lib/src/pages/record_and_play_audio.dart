@@ -1,6 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
 class RecordAndPlayScreen extends StatefulWidget {
   final String? parameterValue;
-  const RecordAndPlayScreen({required this.parameterValue, Key? key}) : super(key: key);
+  const RecordAndPlayScreen({required this.parameterValue, Key? key})
+      : super(key: key);
 
   @override
   State<RecordAndPlayScreen> createState() => _RecordAndPlayScreenState();
@@ -87,10 +89,11 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
     );
   }
 
-  _playTime(){
+  _playTime() {
     final duration = Duration.zero;
     return Text('${duration.inSeconds} s');
   }
+
   _playAudioHeading() {
     return const Center(
       child: Text(
@@ -108,7 +111,8 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
 
     if (_recordProvider.isRecording) {
       return InkWell(
-        onTap: () async => await _recordProviderWithoutListener.stopRecording(widget.parameterValue!),
+        onTap: () async => await _recordProviderWithoutListener
+            .stopRecording(widget.parameterValue!),
         child: RippleAnimation(
           repeat: true,
           color: Color.fromARGB(255, 48, 178, 221),
@@ -193,26 +197,46 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
     ));
   }
 
-  _nextButton(){
-    return ElevatedButton(
-        onPressed: () async {
-                  //await iniciarCamara();
-                  // ignore: use_build_context_synchronously
-            Navigator.of(context).pushNamed('/buttonsTasks', arguments: widget.parameterValue);
-        },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-            minimumSize: const Size(50, 50),
-            shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0)),
+  _nextButton() {
+    return InkWell(
+      child: ElevatedButton(
+        onPressed: () {
+          updateTaskAudio();
+          Navigator.pushNamed(context, '/buttonsTasks',
+            arguments: widget.parameterValue);
+          }, // Asigna una función aquí
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+          minimumSize: const Size(50, 50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
         ),
-            child: const Text("Seguir",
-            style:
-            TextStyle(fontFamily: 'RobotoMono-Bold', fontSize: 12)),
-        );
+        child: const Text(
+          "Seguir",
+          style: TextStyle(fontFamily: 'RobotoMono-Bold', fontSize: 12),
+        ),
+      ),
+    );
   }
+
+
+
+  Future<void> updateTaskAudio() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('pacientes')
+          .doc(widget.parameterValue)
+          .update({'taskaudio': true});
+      print('Task Audio updated successfully');
+    } catch (error) {
+      print('Error updating Task Marcha: $error');
+    }
+  }
+
   _resetButton() {
-    final _recordProvider = Provider.of<RecordAudioProvider>(context, listen: false);
+    final _recordProvider =
+        Provider.of<RecordAudioProvider>(context, listen: false);
 
     return InkWell(
       onTap: () => _recordProvider.clearOldData(),
