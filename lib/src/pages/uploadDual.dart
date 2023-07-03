@@ -220,7 +220,6 @@ class _UploadVideoDualState extends State<UploadVideoDual> {
       firebase_storage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-      // Update completeBradicinesis attribute in Firestore
       await FirebaseFirestore.instance
           .collection('pacientes')
           .doc(idPatient)

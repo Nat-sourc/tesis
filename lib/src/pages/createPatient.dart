@@ -51,6 +51,7 @@ class _CreatePatientState extends State<CreatePatient> {
             'id': id,
             'genero': _selectedGender,
             'fechaCreacion': fechaCreacion,
+            'completeTaskBradicinesis': false,
             'completeBradicinesis': false,
             'taskaudio': false,
             'taskmarcha': false,

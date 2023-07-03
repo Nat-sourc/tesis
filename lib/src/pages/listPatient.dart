@@ -152,7 +152,7 @@ class _ListPatientState extends State<ListPatient> {
                     onPressed: isBradicinesisButtonEnabled &&
                             selectedCedula != null
                         ? () => showPantallaBradicinesia(
-                            "/bradicinesia", selectedCedula!)
+                            "/buttonBradicinesis", selectedCedula!)
                         : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 0, 191, 166),

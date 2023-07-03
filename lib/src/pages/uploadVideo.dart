@@ -229,7 +229,11 @@ class _UploadVideoState extends State<UploadVideo> {
       });
 
       await uploadTask.whenComplete(() {});
-
+      // Update completeBradicinesis attribute in Firestore
+      await FirebaseFirestore.instance
+          .collection('pacientes')
+          .doc(idPatient)
+          .update({'completeBradicinesis': true});
       Navigator.of(context).pop();
 
       showDialog(
