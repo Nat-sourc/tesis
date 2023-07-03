@@ -102,7 +102,7 @@ class _UploadVideoState extends State<UploadVideo> {
       ),
     );
   }
-
+  
   Future<List<ArchivoDB>> getListVideos(List<String> patientIds) async {
     ArchivoRepo archivoRepo = ArchivoRepo();
     List<ArchivoDB> lista = await archivoRepo.getAll();
@@ -173,6 +173,24 @@ class _UploadVideoState extends State<UploadVideo> {
       archive.addFile(archiveFile);
     }
 
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Cargando Videos e Imagenes'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const LinearProgressIndicator(),
+              const SizedBox(height: 16.0),
+              const Text('Por favor espera...'),
+            ],
+          ),
+        );
+      },
+    );
+
     Directory? tempDirectory = await getTemporaryDirectory();
     if (tempDirectory != null) {
       String zipPath = path_provider.join(tempDirectory.path, 'bradicinesia.zip');
@@ -187,14 +205,32 @@ class _UploadVideoState extends State<UploadVideo> {
           .ref()
           .child('$idPatient/bradicinesia.zip'); // Use the ID of the patient in the storage path
       firebase_storage.UploadTask uploadTask = storageRef.putFile(zipFile);
-      firebase_storage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
-      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-      // Actualizar el atributo completeBradicinesis a true en Firestore
-      await FirebaseFirestore.instance
-          .collection('pacientes')
-          .doc(idPatient)
-          .update({'completeBradicinesis': true});
+      uploadTask.snapshotEvents.listen((firebase_storage.TaskSnapshot snapshot) {
+        double progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Cargando Videos e Imagenes'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  LinearProgressIndicator(value: progress / 100),
+                  const SizedBox(height: 16.0),
+                  Text('Cargando... ${progress.toStringAsFixed(2)}%'),
+                ],
+              ),
+            );
+          },
+        );
+      });
+
+      await uploadTask.whenComplete(() {});
+
+      Navigator.of(context).pop();
 
       showDialog(
         context: context,

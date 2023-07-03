@@ -22,6 +22,7 @@ class _UploadVideoDualState extends State<UploadVideoDual> {
   List<String> videoPaths = []; // List of selected video paths
   List<String> imagePaths = []; // List of selected image paths
   late String idPatient; // ID of the patient
+  double uploadProgress = 0.0; // Upload progress
 
   @override
   void initState() {
@@ -95,6 +96,8 @@ class _UploadVideoDualState extends State<UploadVideoDual> {
                 ),
               ),
             ),
+            if (uploadProgress > 0.0 && uploadProgress < 1.0)
+              LinearProgressIndicator(value: uploadProgress),
           ],
         ),
       ),
@@ -191,6 +194,29 @@ class _UploadVideoDualState extends State<UploadVideoDual> {
           .ref()
           .child('$idPatient/dualTask.zip');
       firebase_storage.UploadTask uploadTask = storageRef.putFile(zipFile);
+
+      uploadTask.snapshotEvents.listen((firebase_storage.TaskSnapshot snapshot) {
+        double progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Cargando Videos e Imagenes'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  LinearProgressIndicator(value: progress / 100),
+                  const SizedBox(height: 16.0),
+                  Text('Cargando... ${progress.toStringAsFixed(2)}%'),
+                ],
+              ),
+            );
+          },
+        );
+      });
+
       firebase_storage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
