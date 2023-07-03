@@ -83,6 +83,8 @@ class _CameraComponentState extends State<CameraComponent>
   double _baseScale = 1.0;
   // Counting pointers (number of user fingers on screen)
   int _pointers = 0;
+  int countdown = 5;
+  late Timer countdownTimer;
   @override
   void initState() {
     cameraBloc = BlocProvider.of<CameraBloc>(context);
@@ -800,57 +802,7 @@ class _CameraComponentState extends State<CameraComponent>
     }
   }
 
-  Future<void> calibrateCamera(
-      CameraController cameraController, BuildContext context) async {
-    ArchivoRepo archivoRepo = ArchivoRepo();
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 16.0),
-                Text('Calibrando...'),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-
-    print("llego a calibrado");
-    final String? idPaciente = widget.parameterValue;
-    // Ejemplo de calibración:
-    if (cameraController.value.isInitialized) {
-      final XFile photo = await cameraController.takePicture();
-      final originalPath = photo.path;
-
-      final directory = await path_provider.getTemporaryDirectory();
-      final fileName = (widget.nameTask ?? '') +'$idPaciente.jpg';
-      final newPath = path.join(directory.path, fileName);
-      final File renamedFile = await File(originalPath).rename(newPath);
-      DateTime now = DateTime.now();
-      String formattedDate = DateFormat('dd/MM/yyyy').format(now);
-      print("Foto tomada: ${renamedFile.path}");
-      
-      ArchivoDB archivo = ArchivoDB(
-          idPaciente: widget.parameterValue,
-          idDoctor: 0,
-          path: renamedFile.path,
-          fecha: formattedDate,
-          estado: 0);
-          int id = await archivoRepo.insert(archivo);
-      print("IDENTIFICADOR: " + id.toString());
-    }
-
-    Navigator.of(context, rootNavigator: true).pop();
-  }
-
+  
   void onTakePictureButtonPressed() {
     takePicture().then((XFile? file) {
       if (mounted) {
@@ -864,6 +816,90 @@ class _CameraComponentState extends State<CameraComponent>
         }
       }
     });
+  }
+  Future<void> calibrateCamera(CameraController cameraController, BuildContext context) async {
+    int countdown = 5;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16.0),
+                CountdownText(countdown: countdown),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+  Timer.periodic(Duration(seconds: 1), (timer) async {
+      countdown--;
+
+      if (countdown == 0) {
+        timer.cancel();
+        Navigator.of(context).pop();
+        await capturePhoto(cameraController, context);
+      } else {
+        Navigator.of(context).pop();
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 16.0),
+                    CountdownText(countdown: countdown),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      }
+    });
+  }
+
+  Future<void> capturePhoto(CameraController cameraController, BuildContext context) async {
+    final String? idPaciente = widget.parameterValue;
+
+    if (cameraController.value.isInitialized) {
+      final XFile photo = await cameraController.takePicture();
+      final originalPath = photo.path;
+
+      final directory = await path_provider.getTemporaryDirectory();
+      final fileName = (widget.nameTask ?? '') + '$idPaciente.jpg';
+      final newPath = path.join(directory.path, fileName);
+      final File renamedFile = await File(originalPath).rename(newPath);
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+      print("Photo taken: ${renamedFile.path}");
+
+      ArchivoRepo archivoRepo = ArchivoRepo();
+      ArchivoDB archivo = ArchivoDB(
+        idPaciente: widget.parameterValue,
+        idDoctor: 0,
+        path: renamedFile.path,
+        fecha: formattedDate,
+        estado: 0,
+      );
+      int id = await archivoRepo.insert(archivo);
+      print("IDENTIFIER: " + id.toString());
+    }
+
+    
   }
 
   void onFlashModeButtonPressed() {
@@ -1245,3 +1281,15 @@ class CameraApp extends StatelessWidget {
 }
 
 List<CameraDescription> _cameras = <CameraDescription>[];
+class CountdownText extends StatelessWidget {
+  final int countdown;
+
+  const CountdownText({required this.countdown});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Calibrando en $countdown segundos...');
+  }
+}
+
+
