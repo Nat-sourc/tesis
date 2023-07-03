@@ -4,48 +4,86 @@ import 'package:brainFit/src/components/titleImg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CreatePatient extends StatefulWidget {
-  const CreatePatient({super.key});
+   const CreatePatient({super.key});
 
   @override
-  State<CreatePatient> createState() => _CreatePatientState();
+  _CreatePatientState createState() => _CreatePatientState();
 }
 
 class _CreatePatientState extends State<CreatePatient> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _idController = TextEditingController();
-  String _selectedGender= "";
+  String _selectedGender = "";
 
   void _addPatient() {
     String id = _idController.text;
-    
+
     // Verificar que se haya seleccionado un género
     if (_selectedGender != null) {
-      // Guardar los datos del paciente en Firebase Firestore
-      _firestore.collection('pacientes').doc(id).set({
-        'id': id,
-        'genero': _selectedGender,
-        'completeBradicinesis': false,
-        'taskaudio': false,
-        'taskmarcha': false,
-        'dualtask': false,
-        'completetask': false,
-      }).then((value) {
-        // Éxito al guardar los datos
-        print('Paciente agregado exitosamente');
-        Fluttertoast.showToast(
-          msg: 'Paciente agregado exitosamente',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Color.fromARGB(255, 45, 205, 144),
-          textColor: Colors.white,
-        );
-        Navigator.pushNamed(context, "/principalPage");
-        
+      // Realizar la consulta para verificar si el paciente ya existe
+      _firestore.collection('pacientes').doc(id).get().then((snapshot) {
+        if (snapshot.exists) {
+          // Mostrar alerta si el paciente ya existe
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Paciente existente'),
+                content: Text('El paciente ya ha sido agregado anteriormente.'),
+                actions: [
+                  TextButton(
+                    child: Text('Aceptar'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          // Obtener la fecha actual
+          DateTime now = DateTime.now();
+          Timestamp fechaCreacion = Timestamp.fromDate(now);
+
+          // Guardar los datos del paciente en Firebase Firestore
+          _firestore.collection('pacientes').doc(id).set({
+            'id': id,
+            'genero': _selectedGender,
+            'fechaCreacion': fechaCreacion,
+            'completeBradicinesis': false,
+            'taskaudio': false,
+            'taskmarcha': false,
+            'dualtask': false,
+            'completetask': false,
+          }).then((value) {
+            // Éxito al guardar los datos
+            print('Paciente agregado exitosamente');
+            Fluttertoast.showToast(
+              msg: 'Paciente agregado exitosamente',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Color.fromARGB(255, 45, 205, 144),
+              textColor: Colors.white,
+            );
+            Navigator.pushNamed(context, "/principalPage");
+          }).catchError((error) {
+            // Error al guardar los datos
+            print('Error al agregar el paciente: $error');
+            Fluttertoast.showToast(
+              msg: 'Error al agregar el paciente: $error',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Color.fromARGB(255, 45, 205, 144),
+              textColor: Colors.white,
+            );
+          });
+        }
       }).catchError((error) {
-        // Error al guardar los datos
-        print('Error al agregar el paciente: $error');
+        // Error al realizar la consulta
+        print('Error al verificar el paciente: $error');
         Fluttertoast.showToast(
-          msg: 'Error al agregar el paciente: $error',
+          msg: 'Error al verificar el paciente: $error',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Color.fromARGB(255, 45, 205, 144),
@@ -56,11 +94,11 @@ class _CreatePatientState extends State<CreatePatient> {
       // Mostrar mensaje de error si no se ha seleccionado un género
       print('Seleccione un género');
       Fluttertoast.showToast(
-          msg: 'Seleccione un género',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Color.fromARGB(255, 45, 205, 144),
-          textColor: Colors.white,
+        msg: 'Seleccione un género',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Color.fromARGB(255, 45, 205, 144),
+        textColor: Colors.white,
       );
     }
   }

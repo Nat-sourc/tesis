@@ -28,10 +28,18 @@ class _UploadVideoState extends State<UploadVideo> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       List<ArchivoDB> videoArchivos = await getListVideos([idPatient]);
-      videoPaths = videoArchivos.map((archivo) => archivo.path).whereType<String>().toList();
+      videoPaths = videoArchivos
+          .map((archivo) => archivo.path)
+          .whereType<String>()
+          .where((path) => !path.contains("DUAL"))
+          .toList();
 
       List<ArchivoDB> imageArchivos = await getListImages([idPatient]);
-      imagePaths = imageArchivos.map((archivo) => archivo.path).whereType<String>().toList();
+      imagePaths = imageArchivos
+          .map((archivo) => archivo.path)
+          .whereType<String>()
+          .where((path) => !path.contains("DUAL"))
+          .toList();
 
       setState(() {});
     });
