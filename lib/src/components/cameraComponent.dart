@@ -221,7 +221,7 @@ class _CameraComponentState extends State<CameraComponent>
         children: <Widget>[
           _controlPantalla(),
           _captureControlRowWidget(),
-          _modeControlRowWidget(),
+          //_modeControlRowWidget(),
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Row(
@@ -604,7 +604,7 @@ class _CameraComponentState extends State<CameraComponent>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        IconButton(
+        /*IconButton(
           icon: const Icon(Icons.camera_alt),
           color: Colors.blue,
           onPressed: cameraController != null &&
@@ -612,7 +612,7 @@ class _CameraComponentState extends State<CameraComponent>
                   !cameraController.value.isRecordingVideo
               ? onTakePictureButtonPressed
               : null,
-        ),
+        ),*/
         IconButton(
           icon: const Icon(Icons.videocam),
           color: Colors.blue,
@@ -645,7 +645,7 @@ class _CameraComponentState extends State<CameraComponent>
               ? onStopButtonPressed
               : null,
         ),
-        IconButton(
+        /*IconButton(
           icon: const Icon(Icons.pause_presentation),
           color:
               cameraController != null && cameraController.value.isPreviewPaused
@@ -653,7 +653,7 @@ class _CameraComponentState extends State<CameraComponent>
                   : Colors.blue,
           onPressed:
               cameraController == null ? null : onPausePreviewButtonPressed,
-        ),
+        ),*/
       ],
     );
   }

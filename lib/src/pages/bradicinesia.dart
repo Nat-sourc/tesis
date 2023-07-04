@@ -75,7 +75,7 @@ class Bradicinesia extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        "Esta a punto de empezar el procedimiento de Bradicinesis",
+                        "Se evaluara la velocidad de los movimientos, en los cuales exploraremos la bradicinesia la cual es el enlentecimiento de la ejecución de unas tareas",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

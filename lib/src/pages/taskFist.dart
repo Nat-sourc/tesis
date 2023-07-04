@@ -40,7 +40,7 @@ class _TaskFistState extends State<TaskFist> {
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Tarea puño",
+                Text("Movimiento con las manos",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'RobotoMono-Bold',
@@ -60,7 +60,7 @@ class _TaskFistState extends State<TaskFist> {
               children: [
                 Flexible(
                   child: Text(
-                      "Abrir y cerrar la mano haciendo un movimiento de puño",
+                      "Posicionar el brazo de la manera en que se muestra el video, abra y cierre la mano 10 veces tan rápida y completamente como le sea posible",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,

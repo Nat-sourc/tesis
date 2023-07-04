@@ -96,6 +96,9 @@ flutter:
     - assets/img/upload.png
     - assets/img/marcha.png
     - assets/img/dualTask.png
+    - assets/img/Tarea1.mp4
+    - assets/img/Tarea2.mp4
+    - assets/img/Tarea3.mp4
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

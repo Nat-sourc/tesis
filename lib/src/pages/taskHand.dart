@@ -39,7 +39,7 @@ class _TaskHandState extends State<TaskHand> {
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Tarea movimiento de la mano",
+                Text("Movimientos de supinación de las manos",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'RobotoMono-Bold',
@@ -59,7 +59,7 @@ class _TaskHandState extends State<TaskHand> {
               children: [
                 Flexible(
                   child: Text(
-                      "Mover la mano de un lado para otro",
+                      "Posicione el brazo como se muestra en el video, gire la palma de la mano hacia atrás y adelante alternativamente 10 veces, tan rápido y completamente como sea posible",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,

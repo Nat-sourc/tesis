@@ -34,7 +34,7 @@ class TaskFingers extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Tarea toque de dedos",
+                Text("Golpeteo de dedos",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'RobotoMono-Bold',
@@ -54,7 +54,7 @@ class TaskFingers extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                      "Abrir y cerrar con los dedos de la mano",
+                      "Toque el índice con el pulgar 10 veces tan rápida y ampliamente como sea posible.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,
