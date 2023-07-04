@@ -52,7 +52,7 @@ class _ListPatientState extends State<ListPatient> {
                     });
                   },
                   decoration: InputDecoration(
-                    labelText: 'Buscar ID Paciente',
+                    labelText: 'Buscar ID Paciente o Fecha',
                   ),
                 ),
               ),
@@ -71,7 +71,11 @@ class _ListPatientState extends State<ListPatient> {
                         final filteredPacientes = pacientes?.where((paciente) {
                           final cedula =
                               paciente['id'].toString().toLowerCase();
-                          return cedula.contains(searchText);
+                          final fechaCreacion = paciente['fechaCreacion'];
+                          final formattedDate =
+                              _formatDate(fechaCreacion)?.toLowerCase();
+                          return cedula.contains(searchText) ||
+                              formattedDate!.contains(searchText);
                         }).toList();
                         return Scrollbar(
                           child: ListView.builder(
@@ -81,6 +85,7 @@ class _ListPatientState extends State<ListPatient> {
                             itemBuilder: (context, index) {
                               final paciente = filteredPacientes?[index];
                               final idPatient = paciente?['id'];
+                              final fechaCreacion = paciente?['fechaCreacion'];
                               final isGray =
                                   idPatient.toString().contains('gray');
                               final color = isGray ? Colors.grey : Colors.white;
@@ -90,6 +95,9 @@ class _ListPatientState extends State<ListPatient> {
                               final completeTask =
                                   paciente?['completetask'];
 
+                              final formattedDate =
+                                  _formatDate(fechaCreacion);
+
                               return GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -97,7 +105,7 @@ class _ListPatientState extends State<ListPatient> {
                                     isBradicinesisButtonEnabled =
                                         completeBradicinesis == false;
                                     isDualTaskButtonEnabled =
-                                        completeTask == false; // Habilitar si completeTask es false
+                                        completeTask == false;
                                   });
                                 },
                                 child: Container(
@@ -108,26 +116,51 @@ class _ListPatientState extends State<ListPatient> {
                                       width: isSelected ? 2 : 0,
                                     ),
                                   ),
-                                  height: 40,
-                                  child: Container(
-                                    color: isGray
-                                        ? const Color.fromARGB(
-                                            255, 198, 183, 183)
-                                        : color,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0),
-                                    child: Center(
-                                      child: Text(
-                                        idPatient.toString(),
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: isSelected
-                                              ? Color.fromARGB(
-                                                  255, 44, 195, 190)
-                                              : Colors.black,
+                                  height: 70,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Container(
+                                        color: isGray
+                                            ? const Color.fromARGB(
+                                                255, 198, 183, 183)
+                                            : color,
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            idPatient.toString(),
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: isSelected
+                                                  ? Color.fromARGB(
+                                                      255, 44, 195, 190)
+                                                  : Colors.black,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 4.0,
+                                          horizontal: 10.0,
+                                        ),
+                                        color: isGray
+                                            ? const Color.fromARGB(
+                                                255, 198, 183, 183)
+                                            : color,
+                                        child: Text(
+                                          '$formattedDate',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
@@ -198,6 +231,48 @@ class _ListPatientState extends State<ListPatient> {
         ),
       ),
     );
+  }
+
+  String? _formatDate(Timestamp? timestamp) {
+    if (timestamp != null) {
+      final dateTime = timestamp.toDate();
+      final day = dateTime.day;
+      final month = _getMonthName(dateTime.month);
+      final year = dateTime.year;
+      return '$day de $month de $year';
+    }
+    return null;
+  }
+
+  String _getMonthName(int month) {
+    switch (month) {
+      case 1:
+        return 'enero';
+      case 2:
+        return 'febrero';
+      case 3:
+        return 'marzo';
+      case 4:
+        return 'abril';
+      case 5:
+        return 'mayo';
+      case 6:
+        return 'junio';
+      case 7:
+        return 'julio';
+      case 8:
+        return 'agosto';
+      case 9:
+        return 'septiembre';
+      case 10:
+        return 'octubre';
+      case 11:
+        return 'noviembre';
+      case 12:
+        return 'diciembre';
+      default:
+        return '';
+    }
   }
 
   void showPantallaBradicinesia(String ruta, String? idPaciente) {
