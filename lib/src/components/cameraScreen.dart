@@ -46,7 +46,7 @@ class _CameraScreenState extends State<CameraScreen> {
           context,
           const Center(
               child: Text(
-                  "Problemnas con la camara; por favor reinicia la aplñicación")),
+                  "Problemnas con la camara; por favor reinicia la aplicación")),
         );
     }
   }

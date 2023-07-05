@@ -1,15 +1,35 @@
-import 'package:brainFit/src/components/titleImg.dart';
-import 'package:brainFit/src/components/videoApp.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:brainFit/src/components/cameraScreen.dart';
+import 'package:brainFit/src/components/titleImg.dart';
+import 'package:flutter_gif/flutter_gif.dart';
 
-class TaskFingers extends StatelessWidget {
+class TaskFingers extends StatefulWidget {
+
   const TaskFingers({super.key});
 
+  @override
+  State<TaskFingers> createState() => _TaskFingersState();
+}
+
+class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin{
+  late FlutterGifController controller1;
+  @override
+  void initState() {
+    controller1 = FlutterGifController(vsync: this);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      controller1.repeat(
+        min: 0,
+        max: 130,
+        period: const Duration(milliseconds: 3000),
+      );
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
     return Scaffold(
-      
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(10),
@@ -24,10 +44,15 @@ class TaskFingers extends StatelessWidget {
             ),
             const TitleImg(),
             Row(
+              
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/img/fingers.png",
+                /*Image.asset(
+                  "assets/img/fist.png",
+                ),*/
+                GifImage(
+                  controller: controller1,
+                  image: const AssetImage("assets/img/Tarea2.gif"),
                 ),
               ],
             ),
@@ -38,7 +63,7 @@ class TaskFingers extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'RobotoMono-Bold',
-                        fontSize: 20))
+                        fontSize: 30))
               ],
             ),
             const Row(
@@ -86,7 +111,7 @@ class TaskFingers extends StatelessWidget {
                   onPressed: () async {
                     //await iniciarCamara();
                     // ignore: use_build_context_synchronously
-                    Navigator.of(context).pushNamed('/cameraFingers',arguments:parameterValue);
+                    Navigator.of(context).pushNamed('/cameraFingers', arguments: parameterValue);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 0, 191, 166),
@@ -97,9 +122,10 @@ class TaskFingers extends StatelessWidget {
                       style: TextStyle(
                           fontFamily: 'RobotoMono-Bold',
                           fontSize: 20)), 
-                ),
+            ),
       ]),
       ),
     );
   }
 }
+

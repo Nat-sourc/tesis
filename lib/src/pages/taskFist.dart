@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:brainFit/src/components/cameraScreen.dart';
 import 'package:brainFit/src/components/titleImg.dart';
+import 'package:flutter_gif/flutter_gif.dart';
 
 class TaskFist extends StatefulWidget {
 
@@ -11,7 +12,20 @@ class TaskFist extends StatefulWidget {
   State<TaskFist> createState() => _TaskFistState();
 }
 
-class _TaskFistState extends State<TaskFist> {
+class _TaskFistState extends State<TaskFist> with TickerProviderStateMixin{
+  late FlutterGifController controller1;
+  @override
+  void initState() {
+    controller1 = FlutterGifController(vsync: this);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      controller1.repeat(
+        min: 0,
+        max: 130,
+        period: const Duration(milliseconds: 3000),
+      );
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
@@ -30,10 +44,15 @@ class _TaskFistState extends State<TaskFist> {
             ),
             const TitleImg(),
             Row(
+              
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
+                /*Image.asset(
                   "assets/img/fist.png",
+                ),*/
+                GifImage(
+                  controller: controller1,
+                  image: const AssetImage("assets/img/Tarea1.gif"),
                 ),
               ],
             ),
@@ -103,7 +122,7 @@ class _TaskFistState extends State<TaskFist> {
                       style: TextStyle(
                           fontFamily: 'RobotoMono-Bold',
                           fontSize: 20)), 
-                ),
+            ),
       ]),
       ),
     );

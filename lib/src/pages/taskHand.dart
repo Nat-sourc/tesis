@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gif/flutter_gif.dart';
 
 import '../components/titleImg.dart';
 
@@ -10,7 +11,20 @@ class TaskHand extends StatefulWidget {
   State<TaskHand> createState() => _TaskHandState();
 }
 
-class _TaskHandState extends State<TaskHand> {
+class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin{
+  late FlutterGifController controller1;
+  @override
+  void initState() {
+    controller1 = FlutterGifController(vsync: this);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      controller1.repeat(
+        min: 0,
+        max: 130,
+        period: const Duration(milliseconds: 3000),
+      );
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
@@ -31,8 +45,9 @@ class _TaskHandState extends State<TaskHand> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/img/third.png",
+                GifImage(
+                  controller: controller1,
+                  image: const AssetImage("assets/img/Tarea3.gif"),
                 ),
               ],
             ),
