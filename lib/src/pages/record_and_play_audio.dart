@@ -43,11 +43,6 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                    "https://images.pexels.com/photos/1785493/pexels-photo-1785493.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=200"))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -82,12 +77,29 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
   _recordHeading() {
     return const Center(
       child: Text(
-        'Desde 100 haga la resta de 3 en 3',
+        'Prueba audio',
         style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white),
+                    color: Colors.black,
+                    fontFamily: 'RobotoMono-Bold',
+                    fontSize: 30),
       ),
     );
   }
+
+  indicaciones() {
+    return const Center(
+        child: Text(
+                    "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Resta de tres en tres desde 100.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'RobotoMono-Bold',
+                      fontSize: 18,
+                    ),
+                  ),
+     );
+  }
+  
 
   _playTime() {
     final duration = Duration.zero;
@@ -99,7 +111,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
       child: Text(
         'Audio grabado',
         style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white),
+            fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'RobotoMono-Bold',color: Color.fromARGB(255, 1, 1, 1)),
       ),
     );
   }
@@ -115,7 +127,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
             .stopRecording(widget.parameterValue!),
         child: RippleAnimation(
           repeat: true,
-          color: Color.fromARGB(255, 48, 178, 221),
+          color: Color.fromARGB(255, 0, 191, 166),
           minRadius: 40,
           ripplesCount: 6,
           child: _commonIconSection(),
@@ -135,7 +147,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
       height: 70,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 37, 230, 248),
+        color: Color.fromARGB(255, 0, 191, 166),
         borderRadius: BorderRadius.circular(100),
       ),
       child: const Icon(Icons.keyboard_voice_rounded,
@@ -177,7 +189,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
       },
       icon: Icon(
           _playProvider.isSongPlaying ? Icons.pause : Icons.play_arrow_rounded),
-      color: Color.fromARGB(255, 43, 185, 220),
+      color: Color.fromARGB(255, 0, 191, 166),
       iconSize: 30,
     );
   }
@@ -192,7 +204,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
       child: LinearPercentIndicator(
         percent: _playProvider.currLoadingStatus,
         backgroundColor: Colors.black26,
-        progressColor: Color.fromARGB(255, 62, 183, 231),
+        progressColor: Color.fromARGB(255, 0, 191, 166),
       ),
     ));
   }
@@ -246,7 +258,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 75, 121, 201),
+            color: Color.fromARGB(255, 0, 191, 166),
             borderRadius: BorderRadius.circular(10),
           ),
           child: const Text(
