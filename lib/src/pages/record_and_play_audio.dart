@@ -75,18 +75,25 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
   }
 
   _recordHeading() {
-    return const Center(
-      child: Text(
-        'Prueba audio',
-        style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'RobotoMono-Bold',
-                    fontSize: 30),
-      ),
+    return Column(
+      children: [
+        const Center(
+          child: Text(
+            'Prueba audio',
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'RobotoMono-Bold',
+              fontSize: 30,
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        _indicaciones(), // Llamada a la función _indicaciones()
+      ],
     );
   }
 
-  indicaciones() {
+  _indicaciones() {
     return const Center(
         child: Text(
                     "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Resta de tres en tres desde 100.",
