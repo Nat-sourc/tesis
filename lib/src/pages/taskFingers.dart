@@ -56,7 +56,7 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
                 ),
                 child: GifImage(
                   controller: controller1,
-                  image: AssetImage('assets/img/video3.gif'),
+                  image: AssetImage('assets/img/task2.gif'),
                   fit: BoxFit.contain,
                 ),
               ),
