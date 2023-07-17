@@ -115,7 +115,7 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
                 //await iniciarCamara();
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pushNamed(
-                  '/cameraBradicinesia',
+                  '/cameraHand',
                   arguments: parameterValue,
                 );
               },
