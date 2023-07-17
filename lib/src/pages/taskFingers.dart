@@ -115,7 +115,7 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
                 //await iniciarCamara();
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pushNamed(
-                  '/cameraBradicinesia',
+                  '/cameraFingers',
                   arguments: parameterValue,
                 );
               },
