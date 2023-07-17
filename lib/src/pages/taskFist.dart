@@ -47,12 +47,12 @@ class _TaskFistState extends State<TaskFist> with TickerProviderStateMixin {
               height: 100.0,
             ),
             const TitleImg(),
-            
             AspectRatio(
               aspectRatio: 1.0, // Mantener una proporción cuadrada
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.transparent, // Establecer el color de fondo como transparente
+                  color: Colors
+                      .transparent, // Establecer el color de fondo como transparente
                 ),
                 child: GifImage(
                   controller: controller1,
@@ -115,7 +115,7 @@ class _TaskFistState extends State<TaskFist> with TickerProviderStateMixin {
                 //await iniciarCamara();
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pushNamed(
-                  '/cameraBradicinesia',
+                  '/cameraHand',
                   arguments: parameterValue,
                 );
               },
