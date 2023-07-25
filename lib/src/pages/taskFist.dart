@@ -67,12 +67,15 @@ class _TaskFistState extends State<TaskFist> with TickerProviderStateMixin {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Movimiento con las manos",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'RobotoMono-Bold',
-                    fontSize: 30,
+                Flexible(
+                  child: Text(
+                    "Movimiento con las manos",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'RobotoMono-Bold',
+                      fontSize: 30,
+                    ),
                   ),
                 ),
               ],

@@ -1,17 +1,19 @@
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:brainFit/src/components/cameraScreen.dart';
 import 'package:brainFit/src/components/titleImg.dart';
 import 'package:flutter_gif/flutter_gif.dart';
 
-class TaskHand extends StatefulWidget {
-  const TaskHand({Key? key}) : super(key: key);
+class TaskHandIzq extends StatefulWidget {
+  const TaskHandIzq({Key? key}) : super(key: key);
 
   @override
-  State<TaskHand> createState() => _TaskHandState();
+  State<TaskHandIzq> createState() => _TaskHandIzqState();
 }
 
-class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
+class _TaskHandIzqState extends State<TaskHandIzq>
+    with TickerProviderStateMixin {
   late FlutterGifController controller1;
 
   @override
@@ -37,6 +39,22 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final String? parameterValue =
         ModalRoute.of(context)?.settings.arguments as String?;
+    void updateFirebaseValue() async {
+      if (parameterValue != null) {
+        final CollectionReference patientsCollection =
+            FirebaseFirestore.instance.collection('pacientes');
+        final DocumentReference patientDocument =
+            patientsCollection.doc(parameterValue);
+
+        try {
+          await patientDocument.update({'completeTaskBradicinesis': true});
+          print('Valor actualizado en Firebase');
+        } catch (error) {
+          print('Error al actualizar el valor en Firebase: $error');
+        }
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -47,12 +65,12 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
               height: 100.0,
             ),
             const TitleImg(),
-            
             AspectRatio(
               aspectRatio: 1.0, // Mantener una proporción cuadrada
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.transparent, // Establecer el color de fondo como transparente
+                  color: Colors
+                      .transparent, // Establecer el color de fondo como transparente
                 ),
                 child: GifImage(
                   controller: controller1,
@@ -69,7 +87,7 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
               children: [
                 Flexible(
                   child: Text(
-                    "Movimiento de supinación de las manos, con mano derecha",
+                    "Movimiento de supinación de las manos, con mano izquierda",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -118,8 +136,9 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    updateFirebaseValue();
                     Navigator.of(context).pushNamed(
-                      '/taskHandIzq',
+                      '/buttonBradicinesis',
                       arguments: parameterValue,
                     );
                   },
@@ -135,17 +154,20 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
                     style: TextStyle(
                       fontFamily: 'RobotoMono-Bold',
                       fontSize: 16,
-                      color: Colors.white, // Cambia el color del texto según tus preferencias
+                      color: Colors
+                          .white, // Cambia el color del texto según tus preferencias
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // Espacio entre el botón adicional y "Comencemos"
+                SizedBox(
+                    width:
+                        20), // Espacio entre el botón adicional y "Comencemos"
                 ElevatedButton(
                   onPressed: () async {
                     //await iniciarCamara();
                     // ignore: use_build_context_synchronously
                     Navigator.of(context).pushNamed(
-                      '/cameraHand',
+                      '/cameraHandIzq',
                       arguments: parameterValue,
                     );
                   },
