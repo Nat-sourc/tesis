@@ -1,4 +1,5 @@
 import 'package:brainFit/src/components/videoApp.dart';
+import 'package:brainFit/src/pages/CameraHandIzq.dart';
 import 'package:brainFit/src/pages/audioTask.dart';
 import 'package:brainFit/src/pages/button_Task.dart';
 import 'package:brainFit/src/pages/button_bradicinesis.dart';
@@ -12,6 +13,7 @@ import 'package:brainFit/src/pages/listVideos.dart';
 import 'package:brainFit/src/pages/taskDual.dart';
 import 'package:brainFit/src/pages/taskFingers.dart';
 import 'package:brainFit/src/pages/taskHand.dart';
+import 'package:brainFit/src/pages/taskHandIzq.dart';
 import 'package:brainFit/src/pages/taskMarcha.dart';
 import 'package:brainFit/src/pages/uploadDual.dart';
 import 'package:brainFit/src/pages/uploadVideo.dart';
@@ -19,6 +21,7 @@ import 'package:brainFit/src/pages/videoBradicinesia.dart';
 import 'package:brainFit/src/pages/videoDualTask.dart';
 import 'package:brainFit/src/pages/videoFingers.dart';
 import 'package:brainFit/src/pages/videoHand.dart';
+import 'package:brainFit/src/pages/videoHandIzq.dart';
 import 'package:brainFit/src/pages/videoMarcha.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +86,9 @@ class MyApp extends StatelessWidget {
         "/uploadDual": (context) => const UploadVideoDual(),
         "/audioTask": (context) => const AudioTask(),
         "/buttonBradicinesis": (context) => const ButtonBradicinesis(),
+        "/taskHandIzq": (context) => const TaskHandIzq(),
+        "/cameraHandIzq": (context) => const CameraHandIzq(),
+        "/videoHandIzq": (context) => const VideoHandIzq(),
       },
     ));
   }
