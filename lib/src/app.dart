@@ -4,6 +4,7 @@ import 'package:brainFit/src/pages/audioTask.dart';
 import 'package:brainFit/src/pages/button_Task.dart';
 import 'package:brainFit/src/pages/button_bradicinesis.dart';
 import 'package:brainFit/src/pages/cameraBradicinesia.dart';
+import 'package:brainFit/src/pages/cameraBradicinesiaIzq.dart';
 import 'package:brainFit/src/pages/cameraDualTask.dart';
 import 'package:brainFit/src/pages/cameraFingers.dart';
 import 'package:brainFit/src/pages/cameraHand.dart';
@@ -18,6 +19,7 @@ import 'package:brainFit/src/pages/taskMarcha.dart';
 import 'package:brainFit/src/pages/uploadDual.dart';
 import 'package:brainFit/src/pages/uploadVideo.dart';
 import 'package:brainFit/src/pages/videoBradicinesia.dart';
+import 'package:brainFit/src/pages/videoBradicinesiaIzq.dart';
 import 'package:brainFit/src/pages/videoDualTask.dart';
 import 'package:brainFit/src/pages/videoFingers.dart';
 import 'package:brainFit/src/pages/videoHand.dart';
@@ -33,6 +35,7 @@ import 'package:brainFit/src/components/cameraScreen.dart';
 import 'package:brainFit/src/pages/bradicinesia.dart';
 import 'package:brainFit/src/pages/home.dart';
 import 'package:brainFit/src/pages/taskFist.dart';
+import 'package:brainFit/src/pages/taskFistIzq.dart';
 import 'package:brainFit/src/pages/login_register_page.dart';
 import 'package:brainFit/src/pages/principal.dart';
 import 'package:brainFit/src/pages/listPatient.dart';
@@ -89,6 +92,9 @@ class MyApp extends StatelessWidget {
         "/taskHandIzq": (context) => const TaskHandIzq(),
         "/cameraHandIzq": (context) => const CameraHandIzq(),
         "/videoHandIzq": (context) => const VideoHandIzq(),
+        "/taskFistIzq": (context) => const TaskFistIzq(),
+        "/cameraBradicinesiaIzq": (context) => const CameraBradicinesiaIzq(),
+        "/videoBradicinesiaIzq": (context) => const VideoBradicinesiaIzq(),
       },
     ));
   }

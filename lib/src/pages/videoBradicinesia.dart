@@ -17,7 +17,7 @@ class _VideoBradicinesiaState extends State<VideoBradicinesia> {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
     return VideoApp(
       navegate: () {
-        Navigator.pushNamed(context, '/taskFingers',arguments: parameterValue);
+        Navigator.pushNamed(context, '/taskFistIzq',arguments: parameterValue);
       },
       navegateNew: () {
         Navigator.pushNamed(context, '/cameraBradicinesia',arguments: parameterValue);

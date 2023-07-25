@@ -47,19 +47,16 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
               height: 100.0,
             ),
             const TitleImg(),
-            
-            AspectRatio(
-              aspectRatio: 1.0, // Mantener una proporción cuadrada
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent, // Establecer el color de fondo como transparente
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/img/dedos.jpeg",
                 ),
-                child: GifImage(
-                  controller: controller1,
-                  image: AssetImage('assets/img/task2.gif'),
-                  fit: BoxFit.contain,
-                ),
-              ),
+              ],
             ),
             const SizedBox(
               height: 20.0,

@@ -4,14 +4,14 @@ import 'package:brainFit/src/components/cameraScreen.dart';
 import 'package:brainFit/src/components/titleImg.dart';
 import 'package:flutter_gif/flutter_gif.dart';
 
-class TaskHand extends StatefulWidget {
-  const TaskHand({Key? key}) : super(key: key);
+class TaskFistIzq extends StatefulWidget {
+  const TaskFistIzq({Key? key}) : super(key: key);
 
   @override
-  State<TaskHand> createState() => _TaskHandState();
+  State<TaskFistIzq> createState() => _TaskFistState();
 }
 
-class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
+class _TaskFistState extends State<TaskFistIzq> with TickerProviderStateMixin {
   late FlutterGifController controller1;
 
   @override
@@ -54,19 +54,16 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/img/supinacion.jpeg",
+                  "assets/img/fistPrueba.jpeg",
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 20.0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   child: Text(
-                    "Movimiento de supinación de las manos, con mano derecha",
+                    "Movimiento con las manos, mano izquierda",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -85,7 +82,7 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
               children: [
                 Flexible(
                   child: Text(
-                    "Posicione el brazo como se muestra en el video, gire la palma de la mano hacia atrás y adelante alternativamente 10 veces, tan rápido y completamente como sea posible",
+                    "Posicionar el brazo de la manera en que se muestra el video, abra y cierre la mano 10 veces tan rápida y completamente como le sea posible",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -116,7 +113,7 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(
-                      '/taskHandIzq',
+                      '/taskFingers',
                       arguments: parameterValue,
                     );
                   },
@@ -132,17 +129,20 @@ class _TaskHandState extends State<TaskHand> with TickerProviderStateMixin {
                     style: TextStyle(
                       fontFamily: 'RobotoMono-Bold',
                       fontSize: 16,
-                      color: Colors.white, // Cambia el color del texto según tus preferencias
+                      color: Colors
+                          .white, // Cambia el color del texto según tus preferencias
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // Espacio entre el botón adicional y "Comencemos"
+                SizedBox(
+                    width:
+                        20), // Espacio entre el botón adicional y "Comencemos"
                 ElevatedButton(
                   onPressed: () async {
                     //await iniciarCamara();
                     // ignore: use_build_context_synchronously
                     Navigator.of(context).pushNamed(
-                      '/cameraHand',
+                      '/cameraBradicinesiaIzq',
                       arguments: parameterValue,
                     );
                   },

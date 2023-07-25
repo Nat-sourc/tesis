@@ -47,8 +47,7 @@ class _TaskFistState extends State<TaskFist> with TickerProviderStateMixin {
               height: 100.0,
             ),
             const TitleImg(),
-            
-            AspectRatio(
+            /*AspectRatio(
               aspectRatio: 1.0, // Mantener una proporción cuadrada
               child: Container(
                 decoration: BoxDecoration(
@@ -60,6 +59,17 @@ class _TaskFistState extends State<TaskFist> with TickerProviderStateMixin {
                   fit: BoxFit.contain,
                 ),
               ),
+            ),*/
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/img/fistPrueba.jpeg",
+                ),
+              ],
             ),
             const SizedBox(
               height: 20.0,
@@ -69,7 +79,7 @@ class _TaskFistState extends State<TaskFist> with TickerProviderStateMixin {
               children: [
                 Flexible(
                   child: Text(
-                    "Movimiento con las manos",
+                    "Movimiento con las manos, mano derecha",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -113,29 +123,58 @@ class _TaskFistState extends State<TaskFist> with TickerProviderStateMixin {
             const SizedBox(
               height: 20.0,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                //await iniciarCamara();
-                // ignore: use_build_context_synchronously
-                Navigator.of(context).pushNamed(
-                  '/cameraBradicinesia',
-                  arguments: parameterValue,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                minimumSize: const Size(350, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      '/taskFistIzq',
+                      arguments: parameterValue,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+                    minimumSize: const Size(180, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: Text(
+                    "Saltar Prueba",
+                    style: TextStyle(
+                      fontFamily: 'RobotoMono-Bold',
+                      fontSize: 16,
+                      color: Colors.white, // Cambia el color del texto según tus preferencias
+                    ),
+                  ),
                 ),
-              ),
-              child: const Text(
-                "Comencemos",
-                style: TextStyle(
-                  fontFamily: 'RobotoMono-Bold',
-                  fontSize: 20,
+                SizedBox(width: 20), // Espacio entre el botón adicional y "Comencemos"
+                ElevatedButton(
+                  onPressed: () async {
+                    //await iniciarCamara();
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pushNamed(
+                      '/cameraBradicinesia',
+                      arguments: parameterValue,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+                    minimumSize: const Size(180, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: const Text(
+                    "Comencemos",
+                    style: TextStyle(
+                      fontFamily: 'RobotoMono-Bold',
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
