@@ -4,14 +4,14 @@ import 'package:brainFit/src/components/cameraScreen.dart';
 import 'package:brainFit/src/components/titleImg.dart';
 import 'package:flutter_gif/flutter_gif.dart';
 
-class TaskFingers extends StatefulWidget {
-  const TaskFingers({Key? key}) : super(key: key);
+class TaskFingersIzq extends StatefulWidget {
+  const TaskFingersIzq({Key? key}) : super(key: key);
 
   @override
-  State<TaskFingers> createState() => _TaskFingersState();
+  State<TaskFingersIzq> createState() => _TaskFingersIzqState();
 }
 
-class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin {
+class _TaskFingersIzqState extends State<TaskFingersIzq> with TickerProviderStateMixin {
   late FlutterGifController controller1;
 
   @override
@@ -65,7 +65,7 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                 "Golpeteo de dedos, con la mano derecha",
+                 "Golpeteo de dedos, con la mano izquierda",
                   style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'RobotoMono-Bold',
@@ -113,7 +113,7 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(
-                      '/taskFingersIzq',
+                      '/buttonBradicinesis',
                       arguments: parameterValue,
                     );
                   },
@@ -129,17 +129,20 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
                     style: TextStyle(
                       fontFamily: 'RobotoMono-Bold',
                       fontSize: 16,
-                      color: Colors.white, // Cambia el color del texto según tus preferencias
+                      color: Colors
+                          .white, // Cambia el color del texto según tus preferencias
                     ),
                   ),
                 ),
-                SizedBox(width: 20), // Espacio entre el botón adicional y "Comencemos"
+                SizedBox(
+                    width:
+                        20),
                 ElevatedButton(
                   onPressed: () async {
                     //await iniciarCamara();
                     // ignore: use_build_context_synchronously
                     Navigator.of(context).pushNamed(
-                      '/cameraFingers',
+                      '/cameraFingersIzq',
                       arguments: parameterValue,
                     );
                   },
@@ -155,7 +158,7 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
                     style: TextStyle(
                       fontFamily: 'RobotoMono-Bold',
                       fontSize: 20,
-                    ),
+                   ),
                   ),
                 ),
               ],

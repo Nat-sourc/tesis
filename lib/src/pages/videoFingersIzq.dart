@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 
 import '../components/videoApp.dart';
 
-class VideoFingers extends StatefulWidget {
-  const VideoFingers({super.key});
+class VideoFingersIzq extends StatefulWidget {
+  const VideoFingersIzq({super.key});
 
   @override
-  State<VideoFingers> createState() => _VideoFingersState();
+  State<VideoFingersIzq> createState() => _VideoFingersIzqState();
 }
 
-class _VideoFingersState extends State<VideoFingers> {
+class _VideoFingersIzqState extends State<VideoFingersIzq> {
   @override
   Widget build(BuildContext context) {
     
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
     return VideoApp(
       navegate: () {
-        Navigator.pushNamed(context, '/taskFingersIzq',arguments: parameterValue);
+        Navigator.pushNamed(context, '/taskHand',arguments: parameterValue);
       },
       navegateNew: () {
-        Navigator.pushNamed(context, '/cameraFingers',arguments: parameterValue);
+        Navigator.pushNamed(context, '/cameraFingersIzq',arguments: parameterValue);
       },
     );
   }

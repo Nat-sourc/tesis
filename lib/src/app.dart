@@ -1,5 +1,6 @@
 import 'package:brainFit/src/components/videoApp.dart';
 import 'package:brainFit/src/pages/CameraHandIzq.dart';
+import 'package:brainFit/src/pages/TaskFingersIzq.dart';
 import 'package:brainFit/src/pages/audioTask.dart';
 import 'package:brainFit/src/pages/button_Task.dart';
 import 'package:brainFit/src/pages/button_bradicinesis.dart';
@@ -7,6 +8,7 @@ import 'package:brainFit/src/pages/cameraBradicinesia.dart';
 import 'package:brainFit/src/pages/cameraBradicinesiaIzq.dart';
 import 'package:brainFit/src/pages/cameraDualTask.dart';
 import 'package:brainFit/src/pages/cameraFingers.dart';
+import 'package:brainFit/src/pages/cameraFingersIzq.dart';
 import 'package:brainFit/src/pages/cameraHand.dart';
 import 'package:brainFit/src/pages/cameraMarcha.dart';
 import 'package:brainFit/src/pages/createPatient.dart';
@@ -22,6 +24,7 @@ import 'package:brainFit/src/pages/videoBradicinesia.dart';
 import 'package:brainFit/src/pages/videoBradicinesiaIzq.dart';
 import 'package:brainFit/src/pages/videoDualTask.dart';
 import 'package:brainFit/src/pages/videoFingers.dart';
+import 'package:brainFit/src/pages/videoFingersIzq.dart';
 import 'package:brainFit/src/pages/videoHand.dart';
 import 'package:brainFit/src/pages/videoHandIzq.dart';
 import 'package:brainFit/src/pages/videoMarcha.dart';
@@ -39,6 +42,7 @@ import 'package:brainFit/src/pages/taskFistIzq.dart';
 import 'package:brainFit/src/pages/login_register_page.dart';
 import 'package:brainFit/src/pages/principal.dart';
 import 'package:brainFit/src/pages/listPatient.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -95,6 +99,9 @@ class MyApp extends StatelessWidget {
         "/taskFistIzq": (context) => const TaskFistIzq(),
         "/cameraBradicinesiaIzq": (context) => const CameraBradicinesiaIzq(),
         "/videoBradicinesiaIzq": (context) => const VideoBradicinesiaIzq(),
+        "/taskFingersIzq": (context) => const TaskFingersIzq(),
+        "/cameraFingersIzq": (context) => const CameraFingersIzq(),
+        "/videoFingersIzq": (context) => const VideoFingersIzq(),
       },
     ));
   }

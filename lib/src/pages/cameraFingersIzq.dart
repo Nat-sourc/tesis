@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 
 import '../components/cameraComponent.dart';
 
-class CameraFingers extends StatefulWidget {
-  const CameraFingers({super.key});
+class CameraFingersIzq extends StatefulWidget {
+  const CameraFingersIzq({super.key});
 
   @override
-  State<CameraFingers> createState() => _CameraFingersState();
+  State<CameraFingersIzq> createState() => _CameraFingersIzqState();
 }
 
-class _CameraFingersState extends State<CameraFingers> {
+class _CameraFingersIzqState extends State<CameraFingersIzq> {
   @override
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
-    final String name = "fingertapDerecha";
+    final String name = "fingertapIzquierda";
     return CameraComponent(
       parameterValue: parameterValue,
       nameTask: name,
       onStopButtonPressed: () {
-        Navigator.pushNamed(context, '/videoFingers',arguments: parameterValue);
+        Navigator.pushNamed(context, '/videoFingersIzq',arguments: parameterValue);
       },
     );
   }
