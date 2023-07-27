@@ -64,12 +64,15 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                 "Golpeteo de dedos, con la mano derecha",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'RobotoMono-Bold',
-                    fontSize: 30,
+                 Flexible(
+                  child: Text(
+                     "Golpeteo de dedos, con la mano derecha",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'RobotoMono-Bold',
+                      fontSize: 30,
+                    ),
                   ),
                 ),
               ],
@@ -145,7 +148,7 @@ class _TaskFingersState extends State<TaskFingers> with TickerProviderStateMixin
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                    minimumSize: const Size(350, 50),
+                    minimumSize: const Size(180, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
