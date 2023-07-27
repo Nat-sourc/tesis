@@ -11,7 +11,8 @@ class TaskFingersIzq extends StatefulWidget {
   State<TaskFingersIzq> createState() => _TaskFingersIzqState();
 }
 
-class _TaskFingersIzqState extends State<TaskFingersIzq> with TickerProviderStateMixin {
+class _TaskFingersIzqState extends State<TaskFingersIzq>
+    with TickerProviderStateMixin {
   late FlutterGifController controller1;
 
   @override
@@ -64,12 +65,15 @@ class _TaskFingersIzqState extends State<TaskFingersIzq> with TickerProviderStat
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                 "Golpeteo de dedos, con la mano izquierda",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'RobotoMono-Bold',
-                    fontSize: 30,
+                Flexible(
+                  child: Text(
+                    "Golpeteo de dedos, con la mano izquierda",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'RobotoMono-Bold',
+                      fontSize: 30,
+                    ),
                   ),
                 ),
               ],
@@ -82,7 +86,7 @@ class _TaskFingersIzqState extends State<TaskFingersIzq> with TickerProviderStat
               children: [
                 Flexible(
                   child: Text(
-                     "Toque el índice con el pulgar 10 veces tan rápida y ampliamente como sea posible.",
+                    "Toque el índice con el pulgar 10 veces tan rápida y ampliamente como sea posible.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -113,7 +117,7 @@ class _TaskFingersIzqState extends State<TaskFingersIzq> with TickerProviderStat
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(
-                      '/buttonBradicinesis',
+                      '/taskHand',
                       arguments: parameterValue,
                     );
                   },
@@ -134,9 +138,7 @@ class _TaskFingersIzqState extends State<TaskFingersIzq> with TickerProviderStat
                     ),
                   ),
                 ),
-                SizedBox(
-                    width:
-                        20),
+                SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () async {
                     //await iniciarCamara();
@@ -148,7 +150,7 @@ class _TaskFingersIzqState extends State<TaskFingersIzq> with TickerProviderStat
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                    minimumSize: const Size(350, 50),
+                    minimumSize: const Size(180, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -158,7 +160,7 @@ class _TaskFingersIzqState extends State<TaskFingersIzq> with TickerProviderStat
                     style: TextStyle(
                       fontFamily: 'RobotoMono-Bold',
                       fontSize: 20,
-                   ),
+                    ),
                   ),
                 ),
               ],
