@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../components/videoApp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class VideoMarcha extends StatefulWidget {
-  const VideoMarcha({Key? key}) : super(key: key);
+class VideoArm extends StatefulWidget {
+  const VideoArm({Key? key}) : super(key: key);
 
   @override
-  State<VideoMarcha> createState() => _VideoMarchaState();
+  State<VideoArm> createState() => _VideoArmState();
 }
 
-class _VideoMarchaState extends State<VideoMarcha> {
+class _VideoArmState extends State<VideoArm> {
   @override
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
@@ -20,7 +20,7 @@ class _VideoMarchaState extends State<VideoMarcha> {
         Navigator.pushNamed(context, '/ButtonMotoras', arguments: parameterValue);
       },
       navegateNew: () {
-        Navigator.pushNamed(context, '/cameraMarcha', arguments: parameterValue);
+        Navigator.pushNamed(context, '/CameraArm', arguments: parameterValue);
       },
     );
   }

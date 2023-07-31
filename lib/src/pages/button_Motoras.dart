@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../components/titleImg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ButtonTaskDualTask extends StatefulWidget {
-  const ButtonTaskDualTask({Key? key}) : super(key: key);
+class ButtonMotoras extends StatefulWidget {
+  const ButtonMotoras({Key? key}) : super(key: key);
 
   @override
-  State<ButtonTaskDualTask> createState() => _ButtonTaskDualTaskState();
+  State<ButtonMotoras> createState() => _ButtonMotorasState();
 }
 
-class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
+class _ButtonMotorasState extends State<ButtonMotoras> {
   bool isTaskAudioEnabled = true;
   bool isTaskMarchaEnabled = true;
   bool isTaskDualTaskEnabled = true;
@@ -67,7 +67,7 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                         onPressed: isTaskAudioEnabled
                             ? () {
                                 Navigator.of(context).pushNamed(
-                                  "/audioTask",
+                                  "/taskMarcha",
                                   arguments: parameterValue,
                                 );
                               }
@@ -81,7 +81,7 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                           ),
                         ),
                         child: const Text(
-                          "Prueba Audio",
+                          "Marcha",
                           style: TextStyle(
                             fontFamily: 'RobotoMono-Bold',
                             fontSize: 20,
@@ -120,11 +120,12 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                         isTaskMarchaEnabled = false;
                         print("llego");
                       }
+
                       return ElevatedButton(
                         onPressed: isTaskMarchaEnabled
                             ? () {
                                 Navigator.of(context).pushNamed(
-                                  "/ButtonMotoras",
+                                  "/taskMarcha",
                                   arguments: parameterValue,
                                 );
                               }
@@ -137,7 +138,7 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                           ),
                         ),
                         child: const Text(
-                          "Simples Motoras",
+                          "Brazos",
                           style: TextStyle(
                             fontFamily: 'RobotoMono-Bold',
                             fontSize: 20,
@@ -148,95 +149,6 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                           return CircularProgressIndicator();
                       }
                   },
-                ),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 30.0,
-                      height: 50.0,
-                    ),
-                  ],
-                ),
-                StreamBuilder<DocumentSnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('pacientes')
-                      .doc(parameterValue)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    print(parameterValue);
-                    if (snapshot.hasData) {
-                      final paciente = snapshot.data;
-
-                      final taskAudio = paciente?['taskaudio'];
-                      final taskMarcha = paciente?['taskmarcha'];
-                      final dualTask = paciente?['dualtask'];
-
-
-                      if (dualTask == true) {
-                        isTaskDualTaskEnabled = false;
-                        print("no llego");
-                      }
-
-                      return ElevatedButton(
-                        onPressed: isTaskDualTaskEnabled
-                            ? () {
-                                Navigator.of(context).pushNamed(
-                                  "/taskDual",
-                                  arguments: parameterValue,
-                                );
-                              }
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                          minimumSize: const Size(350, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: const Text(
-                          "Dual-Task",
-                          style: TextStyle(
-                            fontFamily: 'RobotoMono-Bold',
-                            fontSize: 20,
-                          ),
-                        ),
-                      );
-                    } else {
-                          return CircularProgressIndicator();
-                      }
-                  },
-                ),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 30.0,
-                      height: 50.0,
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                    onPressed: isTaskDualTaskEnabled
-                        ? () {
-                            Navigator.of(context).pushNamed(
-                              "/uploadDual",
-                              arguments: parameterValue,
-                            );
-                          }
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                      minimumSize: const Size(350, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    child: const Text(
-                      "Subir Prueba",
-                      style: TextStyle(
-                        fontFamily: 'RobotoMono-Bold',
-                        fontSize: 20,
-                      ),
-                    ),
                 ),
                 const Row(
                   children: [

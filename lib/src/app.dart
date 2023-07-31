@@ -42,7 +42,10 @@ import 'package:brainFit/src/pages/taskFistIzq.dart';
 import 'package:brainFit/src/pages/login_register_page.dart';
 import 'package:brainFit/src/pages/principal.dart';
 import 'package:brainFit/src/pages/listPatient.dart';
-
+import 'package:brainFit/src/pages/button_Motoras.dart';
+import 'package:brainFit/src/pages/taskArm.dart';
+import 'package:brainFit/src/pages/cameraArmDual.dart';
+import 'package:brainFit/src/pages/videoArm.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -102,6 +105,10 @@ class MyApp extends StatelessWidget {
         "/taskFingersIzq": (context) => const TaskFingersIzq(),
         "/cameraFingersIzq": (context) => const CameraFingersIzq(),
         "/videoFingersIzq": (context) => const VideoFingersIzq(),
+        "/ButtonMotoras": (context) => const ButtonMotoras(),
+        "/TaskArm": (context) => const TaskArm(),
+        "/CameraArm": (context) => const CameraArm(),
+        "/VideoArm": (context) => const VideoArm(),
       },
     ));
   }
