@@ -10,7 +10,7 @@ class ButtonMotoras extends StatefulWidget {
 }
 
 class _ButtonMotorasState extends State<ButtonMotoras> {
-  bool isTaskAudioEnabled = true;
+  bool isTaskArmEnabled = true;
   bool isTaskMarchaEnabled = true;
   bool isTaskDualTaskEnabled = true;
 
@@ -54,17 +54,17 @@ class _ButtonMotorasState extends State<ButtonMotoras> {
                     if (snapshot.hasData) {
                       final paciente = snapshot.data;
 
-                      final taskAudio = paciente?['taskaudio'];
+                      final taskArm = paciente?['taskArm'];
                       final taskMarcha = paciente?['taskmarcha'];
                       final dualTask = paciente?['dualtask'];
 
-                      if (taskAudio == true) {
-                        isTaskAudioEnabled = false;
+                      if (taskMarcha == true) {
+                        isTaskMarchaEnabled = false;
                         print("no llego");
                       }
 
                       return ElevatedButton(
-                        onPressed: isTaskAudioEnabled
+                        onPressed: isTaskMarchaEnabled
                             ? () {
                                 Navigator.of(context).pushNamed(
                                   "/taskMarcha",
@@ -111,21 +111,21 @@ class _ButtonMotorasState extends State<ButtonMotoras> {
                     if (snapshot.hasData) {
                       final paciente = snapshot.data;
 
-                      final taskAudio = paciente?['taskaudio'];
+                      final taskArm = paciente?['taskArm'];
                       final taskMarcha = paciente?['taskmarcha'];
                       final dualTask = paciente?['dualtask'];
 
                       
-                      if (taskMarcha == true) {
-                        isTaskMarchaEnabled = false;
+                      if (taskArm == true) {
+                        isTaskArmEnabled = false;
                         print("llego");
                       }
 
                       return ElevatedButton(
-                        onPressed: isTaskMarchaEnabled
+                        onPressed: isTaskArmEnabled
                             ? () {
                                 Navigator.of(context).pushNamed(
-                                  "/taskMarcha",
+                                  "/TaskArm",
                                   arguments: parameterValue,
                                 );
                               }
@@ -162,7 +162,7 @@ class _ButtonMotorasState extends State<ButtonMotoras> {
                     onPressed: isTaskDualTaskEnabled
                         ? () {
                             Navigator.of(context).pushNamed(
-                              "/listPatient",
+                              "/buttonsTasks",
                               arguments: parameterValue,
                             );
                           }

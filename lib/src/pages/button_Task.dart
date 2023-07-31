@@ -11,6 +11,7 @@ class ButtonTaskDualTask extends StatefulWidget {
 
 class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
   bool isTaskAudioEnabled = true;
+  bool isTaskSimplesMotorasEnabled = true;
   bool isTaskMarchaEnabled = true;
   bool isTaskDualTaskEnabled = true;
 
@@ -111,17 +112,15 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                     if (snapshot.hasData) {
                       final paciente = snapshot.data;
 
-                      final taskAudio = paciente?['taskaudio'];
+                      final taskArm = paciente?['taskArm'];
                       final taskMarcha = paciente?['taskmarcha'];
-                      final dualTask = paciente?['dualtask'];
 
                       
-                      if (taskMarcha == true) {
-                        isTaskMarchaEnabled = false;
-                        print("llego");
+                      if (taskMarcha == true && taskArm == true) {
+                        isTaskSimplesMotorasEnabled = false;
                       }
                       return ElevatedButton(
-                        onPressed: isTaskMarchaEnabled
+                        onPressed: isTaskSimplesMotorasEnabled
                             ? () {
                                 Navigator.of(context).pushNamed(
                                   "/ButtonMotoras",

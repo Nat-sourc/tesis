@@ -44,7 +44,7 @@ import 'package:brainFit/src/pages/principal.dart';
 import 'package:brainFit/src/pages/listPatient.dart';
 import 'package:brainFit/src/pages/button_Motoras.dart';
 import 'package:brainFit/src/pages/taskArm.dart';
-import 'package:brainFit/src/pages/cameraArmDual.dart';
+import 'package:brainFit/src/pages/cameraArm.dart';
 import 'package:brainFit/src/pages/videoArm.dart';
 
 class MyApp extends StatelessWidget {

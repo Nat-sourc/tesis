@@ -55,6 +55,7 @@ class _CreatePatientState extends State<CreatePatient> {
             'completeBradicinesis': false,
             'taskaudio': false,
             'taskmarcha': false,
+            'taskArm': false,
             'dualtask': false,
             'completetask': false,
           }).then((value) {

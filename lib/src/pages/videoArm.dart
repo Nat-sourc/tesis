@@ -30,10 +30,10 @@ class _VideoArmState extends State<VideoArm> {
       await FirebaseFirestore.instance
           .collection('pacientes')
           .doc(parameterValue)
-          .update({'taskmarcha': true});
-      print('Task Marcha updated successfully');
+          .update({'taskArm': true});
+      print('Task Arm updated successfully');
     } catch (error) {
-      print('Error updating Task Marcha: $error');
+      print('Error updating Task Arm: $error');
     }
   }
 }
