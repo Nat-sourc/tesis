@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import '../components/titleImg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ButtonTaskDualTask extends StatefulWidget {
-  const ButtonTaskDualTask({Key? key}) : super(key: key);
+class ButtonDual extends StatefulWidget {
+  const ButtonDual({super.key});
 
   @override
-  State<ButtonTaskDualTask> createState() => _ButtonTaskDualTaskState();
+  State<ButtonDual> createState() => _ButtonDualState();
 }
 
-class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
-  bool isTaskAudioEnabled = true;
-  bool isTaskSimplesMotorasEnabled = true;
-  bool isTaskMarchaEnabled = true;
+class _ButtonDualState extends State<ButtonDual> {
+   bool isTaskArmDualEnabled = true;
+  bool isTaskMarchaDualEnabled = true;
   bool isTaskDualTaskEnabled = true;
-  bool isTaskDualvTaskEnabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -56,19 +54,19 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                     if (snapshot.hasData) {
                       final paciente = snapshot.data;
 
-                      final taskAudio = paciente?['taskaudio'];
-                      final taskMarcha = paciente?['taskmarcha'];
+                      final taskArm = paciente?['taskArmDual'];
+                      final taskMarcha = paciente?['taskmarchaDual'];
 
-                      if (taskAudio == true) {
-                        isTaskAudioEnabled = false;
+                      if (taskMarcha == true) {
+                        isTaskMarchaDualEnabled = false;
                         print("no llego");
                       }
 
                       return ElevatedButton(
-                        onPressed: isTaskAudioEnabled
+                        onPressed: isTaskMarchaDualEnabled
                             ? () {
                                 Navigator.of(context).pushNamed(
-                                  "/audioTask",
+                                  "/taskDual",
                                   arguments: parameterValue,
                                 );
                               }
@@ -82,7 +80,7 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                           ),
                         ),
                         child: const Text(
-                          "Tareas Simples Cognitivas",
+                          "Marcha-DualTask",
                           style: TextStyle(
                             fontFamily: 'RobotoMono-Bold',
                             fontSize: 20,
@@ -112,74 +110,20 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                     if (snapshot.hasData) {
                       final paciente = snapshot.data;
 
-                      final taskArm = paciente?['taskArm'];
-                      final taskMarcha = paciente?['taskmarcha'];
-
-                      
-                      if (taskMarcha == true && taskArm == true) {
-                        isTaskSimplesMotorasEnabled = false;
-                      }
-                      return ElevatedButton(
-                        onPressed: isTaskSimplesMotorasEnabled
-                            ? () {
-                                Navigator.of(context).pushNamed(
-                                  "/ButtonMotoras",
-                                  arguments: parameterValue,
-                                );
-                              }
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                          minimumSize: const Size(350, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: const Text(
-                          "Simples Motoras",
-                          style: TextStyle(
-                            fontFamily: 'RobotoMono-Bold',
-                            fontSize: 20,
-                          ),
-                        ),
-                      );
-                    } else {
-                          return CircularProgressIndicator();
-                      }
-                  },
-                ),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 30.0,
-                      height: 50.0,
-                    ),
-                  ],
-                ),
-                StreamBuilder<DocumentSnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('pacientes')
-                      .doc(parameterValue)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    print(parameterValue);
-                    if (snapshot.hasData) {
-                      final paciente = snapshot.data;
-
                       final taskArm = paciente?['taskArmDual'];
                       final taskMarcha = paciente?['taskmarchaDual'];
 
-
-                      if (taskArm == true && taskMarcha == true) {
-                        isTaskDualvTaskEnabled = false;
-                        print("no llego");
+                      
+                      if (taskArm == true) {
+                        isTaskArmDualEnabled = false;
+                        print("llego");
                       }
 
                       return ElevatedButton(
-                        onPressed: isTaskDualvTaskEnabled
+                        onPressed: isTaskArmDualEnabled
                             ? () {
                                 Navigator.of(context).pushNamed(
-                                  "/ButtonDual",
+                                  "/taskDualArm",
                                   arguments: parameterValue,
                                 );
                               }
@@ -192,7 +136,7 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                           ),
                         ),
                         child: const Text(
-                          "Dual-Task",
+                          "Brazo-DualTask",
                           style: TextStyle(
                             fontFamily: 'RobotoMono-Bold',
                             fontSize: 20,
@@ -216,39 +160,7 @@ class _ButtonTaskDualTaskState extends State<ButtonTaskDualTask> {
                     onPressed: isTaskDualTaskEnabled
                         ? () {
                             Navigator.of(context).pushNamed(
-                              "/uploadDual",
-                              arguments: parameterValue,
-                            );
-                          }
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                      minimumSize: const Size(350, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    child: const Text(
-                      "Subir Prueba",
-                      style: TextStyle(
-                        fontFamily: 'RobotoMono-Bold',
-                        fontSize: 20,
-                      ),
-                    ),
-                ),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 30.0,
-                      height: 50.0,
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                    onPressed: isTaskDualTaskEnabled
-                        ? () {
-                            Navigator.of(context).pushNamed(
-                              "/listPatient",
+                              "/buttonsTasks",
                               arguments: parameterValue,
                             );
                           }

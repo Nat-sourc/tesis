@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../components/titleImg.dart';
 
-class TaskDual extends StatelessWidget {
-  const TaskDual({super.key});
+class TaskDualArm extends StatelessWidget {
+  const TaskDualArm({super.key});
 
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
@@ -32,7 +32,7 @@ class TaskDual extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Dual Task Marcha",
+                Text("Dual Task Brazo",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'RobotoMono-Bold',
@@ -52,7 +52,7 @@ class TaskDual extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                      "Camine 4 metros, mientras habla",
+                      "Mueva el brazo, mientras habla",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,
@@ -84,7 +84,7 @@ class TaskDual extends StatelessWidget {
                   onPressed: () async {
                     //await iniciarCamara();
                     // ignore: use_build_context_synchronously
-                    Navigator.of(context).pushNamed('/cameraDual', arguments: parameterValue);
+                    Navigator.of(context).pushNamed('/cameraDualArm', arguments: parameterValue);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 0, 191, 166),

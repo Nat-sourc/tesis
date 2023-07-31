@@ -2,11 +2,13 @@ import 'package:brainFit/src/components/videoApp.dart';
 import 'package:brainFit/src/pages/CameraHandIzq.dart';
 import 'package:brainFit/src/pages/TaskFingersIzq.dart';
 import 'package:brainFit/src/pages/audioTask.dart';
+import 'package:brainFit/src/pages/button_Dual.dart';
 import 'package:brainFit/src/pages/button_Task.dart';
 import 'package:brainFit/src/pages/button_bradicinesis.dart';
 import 'package:brainFit/src/pages/cameraBradicinesia.dart';
 import 'package:brainFit/src/pages/cameraBradicinesiaIzq.dart';
 import 'package:brainFit/src/pages/cameraDualTask.dart';
+import 'package:brainFit/src/pages/cameraDualTaskArm.dart';
 import 'package:brainFit/src/pages/cameraFingers.dart';
 import 'package:brainFit/src/pages/cameraFingersIzq.dart';
 import 'package:brainFit/src/pages/cameraHand.dart';
@@ -14,6 +16,7 @@ import 'package:brainFit/src/pages/cameraMarcha.dart';
 import 'package:brainFit/src/pages/createPatient.dart';
 import 'package:brainFit/src/pages/listVideos.dart';
 import 'package:brainFit/src/pages/taskDual.dart';
+import 'package:brainFit/src/pages/taskDualArm.dart';
 import 'package:brainFit/src/pages/taskFingers.dart';
 import 'package:brainFit/src/pages/taskHand.dart';
 import 'package:brainFit/src/pages/taskHandIzq.dart';
@@ -23,6 +26,7 @@ import 'package:brainFit/src/pages/uploadVideo.dart';
 import 'package:brainFit/src/pages/videoBradicinesia.dart';
 import 'package:brainFit/src/pages/videoBradicinesiaIzq.dart';
 import 'package:brainFit/src/pages/videoDualTask.dart';
+import 'package:brainFit/src/pages/videoDualTaskArm.dart';
 import 'package:brainFit/src/pages/videoFingers.dart';
 import 'package:brainFit/src/pages/videoFingersIzq.dart';
 import 'package:brainFit/src/pages/videoHand.dart';
@@ -91,8 +95,11 @@ class MyApp extends StatelessWidget {
         "/cameraMarcha": (context) => const CameraMarcha(),
         "/videoMarcha": (context) => const VideoMarcha(),
         "/taskDual": (context) => const TaskDual(),
+        "/taskDualArm": (context) => const TaskDualArm(),
         "/cameraDual": (context) => const CameraDualTask(),
+        "/cameraDualArm": (context) => const CameraDualTaskArm(),
         "/videoDual": (context) => const VideoDualTask(),
+        "/videoDualArm": (context) => const VideoDualTaskArm(),
         "/uploadDual": (context) => const UploadVideoDual(),
         "/audioTask": (context) => const AudioTask(),
         "/buttonBradicinesis": (context) => const ButtonBradicinesis(),
@@ -109,6 +116,7 @@ class MyApp extends StatelessWidget {
         "/TaskArm": (context) => const TaskArm(),
         "/CameraArm": (context) => const CameraArm(),
         "/VideoArm": (context) => const VideoArm(),
+        "/ButtonDual": (context) => const ButtonDual(),
       },
     ));
   }

@@ -56,7 +56,8 @@ class _CreatePatientState extends State<CreatePatient> {
             'taskaudio': false,
             'taskmarcha': false,
             'taskArm': false,
-            'dualtask': false,
+            'taskmarchaDual': false,
+            'taskArmDual': false,
             'completetask': false,
           }).then((value) {
             // Éxito al guardar los datos

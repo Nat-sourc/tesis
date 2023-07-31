@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../components/videoApp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class VideoDualTask extends StatefulWidget {
-  const VideoDualTask({Key? key}) : super(key: key);
+class VideoDualTaskArm extends StatefulWidget {
+  const VideoDualTaskArm({Key? key}) : super(key: key);
 
   @override
-  State<VideoDualTask> createState() => _VideoDualTaskState();
+  State<VideoDualTaskArm> createState() => _VideoDualTaskArmState();
 }
 
-class _VideoDualTaskState extends State<VideoDualTask> {
+class _VideoDualTaskArmState extends State<VideoDualTaskArm> {
   @override
   Widget build(BuildContext context) {
     final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
@@ -20,7 +20,7 @@ class _VideoDualTaskState extends State<VideoDualTask> {
         Navigator.pushNamed(context, '/ButtonDual', arguments: parameterValue);
       },
       navegateNew: () {
-        Navigator.pushNamed(context, '/cameraDual', arguments: parameterValue);
+        Navigator.pushNamed(context, '/cameraDualArm', arguments: parameterValue);
       },
     );
   }
@@ -30,7 +30,7 @@ class _VideoDualTaskState extends State<VideoDualTask> {
       await FirebaseFirestore.instance
           .collection('pacientes')
           .doc(parameterValue)
-          .update({'taskmarchaDual': true});
+          .update({'taskArmDual': true});
       print('Task Marcha updated successfully');
     } catch (error) {
       print('Error updating Task Marcha: $error');
