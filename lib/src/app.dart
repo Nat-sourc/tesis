@@ -2,6 +2,7 @@ import 'package:brainFit/src/components/videoApp.dart';
 import 'package:brainFit/src/pages/CameraHandIzq.dart';
 import 'package:brainFit/src/pages/TaskFingersIzq.dart';
 import 'package:brainFit/src/pages/audioTask.dart';
+import 'package:brainFit/src/pages/audioTaskCogni.dart';
 import 'package:brainFit/src/pages/button_Dual.dart';
 import 'package:brainFit/src/pages/button_Task.dart';
 import 'package:brainFit/src/pages/button_bradicinesis.dart';
@@ -50,6 +51,7 @@ import 'package:brainFit/src/pages/button_Motoras.dart';
 import 'package:brainFit/src/pages/taskArm.dart';
 import 'package:brainFit/src/pages/cameraArm.dart';
 import 'package:brainFit/src/pages/videoArm.dart';
+import 'package:brainFit/src/pages/button_Cognitivas.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -116,7 +118,12 @@ class MyApp extends StatelessWidget {
         "/TaskArm": (context) => const TaskArm(),
         "/CameraArm": (context) => const CameraArm(),
         "/VideoArm": (context) => const VideoArm(),
+        "/ButtonCognitivas": (context) => const ButtonCognitivas(),
         "/ButtonDual": (context) => const ButtonDual(),
+        "/audioTaskCogni": (context) => const AudioTaskCogni(),
+        
+        
+        //Button Cognitivas
       },
     ));
   }

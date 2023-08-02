@@ -54,6 +54,7 @@ class _CreatePatientState extends State<CreatePatient> {
             'completeTaskBradicinesis': false,
             'completeBradicinesis': false,
             'taskaudio': false,
+            'taskaudioCogni': false,
             'taskmarcha': false,
             'taskArm': false,
             'taskmarchaDual': false,

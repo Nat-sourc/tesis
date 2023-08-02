@@ -56,6 +56,36 @@ class RecordAudioProvider extends ChangeNotifier{
 
   }
 
+  stopRecordingCogni(String parameterValue)async{
+    String? _audioFilePath;
+
+    if(await _record.isRecording()){
+      _audioFilePath = await _record.stop();
+      showToast('Grabación parada');
+    }
+
+    print('Audio file path: $_audioFilePath');
+
+    _isRecording = false;
+    _afterRecordingFilePath = _audioFilePath ?? '';
+    String ? path = _audioFilePath;
+    guardarRegistroCogni( path! ,parameterValue);
+    notifyListeners();
+
+  }
+
+  Future <void> guardarRegistroCogni(String nameFile, String parameterValue) async {
+    nameFile = nameFile + "COGNI";
+    ArchivoRepo archivoRepo = ArchivoRepo();
+    // Obtener la fecha y hora actual
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+    ArchivoDB archivo = ArchivoDB(idPaciente: parameterValue, idDoctor: 0, path:nameFile, fecha: formattedDate, estado: 0);
+    int id = await archivoRepo.insert(archivo);
+    print("IDENTIFICADOR: " + id.toString());
+    return;
+  }
+
   Future <void> guardarRegistro(String nameFile, String parameterValue) async {
     ArchivoRepo archivoRepo = ArchivoRepo();
     // Obtener la fecha y hora actual

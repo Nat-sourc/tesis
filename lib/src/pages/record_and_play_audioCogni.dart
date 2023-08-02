@@ -9,16 +9,16 @@ import 'package:brainFit/src/providers/play_audio_provider.dart';
 import 'package:brainFit/src/providers/record_audio_provider.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
-class RecordAndPlayScreen extends StatefulWidget {
+class RecordAndPlayScreenCogni extends StatefulWidget {
   final String? parameterValue;
-  const RecordAndPlayScreen({required this.parameterValue, Key? key})
+  const RecordAndPlayScreenCogni({required this.parameterValue, Key? key})
       : super(key: key);
 
   @override
-  State<RecordAndPlayScreen> createState() => _RecordAndPlayScreenState();
+  State<RecordAndPlayScreenCogni> createState() => _RecordAndPlayScreenCogniState();
 }
 
-class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
+class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
   customizeStatusAndNavigationBar() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
@@ -79,7 +79,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
       children: [
         const Center(
           child: Text(
-            'Prueba audio Aritmética',
+            'Prueba audio F.V',
             style: TextStyle(
               color: Colors.black,
               fontFamily: 'RobotoMono-Bold',
@@ -96,7 +96,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
   _indicaciones() {
     return const Center(
         child: Text(
-                    "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Resta de tres en tres desde 100.",
+                    "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Animales que inicien por la letra A.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -131,7 +131,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
     if (_recordProvider.isRecording) {
       return InkWell(
         onTap: () async => await _recordProviderWithoutListener
-            .stopRecording(widget.parameterValue!),
+            .stopRecordingCogni(widget.parameterValue!),
         child: RippleAnimation(
           repeat: true,
           color: Color.fromARGB(255, 0, 191, 166),
@@ -246,7 +246,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
       await FirebaseFirestore.instance
           .collection('pacientes')
           .doc(widget.parameterValue)
-          .update({'taskaudio': true});
+          .update({'taskaudioCogni': true});
       print('Task Audio updated successfully');
     } catch (error) {
       print('Error updating Task Marcha: $error');
