@@ -67,7 +67,28 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
               const SizedBox(height: 40),
             if (_recordProvider.recordedFilePath.isNotEmpty &&
                 !_playProvider.isSongPlaying)
-              _nextButton(),
+              //_nextButton(),
+              ElevatedButton(
+                    onPressed: () {
+                      updateTaskAudio();
+                      Navigator.of(context).pushNamed("/buttonsTasks",
+                        arguments: widget.parameterValue);
+                    }, 
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+                      minimumSize: const Size(350, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    child: const Text(
+                      "Siguiente",
+                      style: TextStyle(
+                        fontFamily: 'RobotoMono-Bold',
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),
