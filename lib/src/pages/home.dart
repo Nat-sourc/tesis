@@ -137,65 +137,6 @@ class _HomeState extends State<Home> {
                       )
                     ],
                   ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      archivoRepo = ArchivoRepo();
-                      List<ArchivoDB> list = await archivoRepo.getAll();
-                      list.forEach((element) {
-                        print(element.id);
-                        print(element.path);
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                      minimumSize: const Size(350, 50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                    child: const Text("Listar DB",
-                        style: TextStyle(
-                            fontFamily: 'RobotoMono-Bold', fontSize: 20)),
-                  ),
-                  const Row(
-                    children: [
-                      SizedBox(
-                        width: 30.0,
-                        height: 50.0,
-                      )
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () => {showPantallaBradicinesia("/playVideo")},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                      minimumSize: const Size(350, 50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                    child: const Text("Ver Video",
-                        style: TextStyle(
-                            fontFamily: 'RobotoMono-Bold', fontSize: 20)),
-                  ),
-                  const Row(
-                    children: [
-                      SizedBox(
-                        width: 30.0,
-                        height: 50.0,
-                      )
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () => {showPantallaBradicinesia("/listVideo")},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                      minimumSize: const Size(350, 50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                    child: const Text("Ver Lista",
-                        style: TextStyle(
-                            fontFamily: 'RobotoMono-Bold', fontSize: 20)),
-                  ),
                 ])),
           ],
         ));

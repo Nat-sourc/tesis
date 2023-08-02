@@ -21,11 +21,19 @@ class TaskDualArm extends StatelessWidget {
               ],
             ),
             const TitleImg(),
+            const Row(
+              children: [
+                SizedBox(
+                  width: 30.0,
+                  height: 10.0,
+                )
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/img/dualTask.png",
+                  "assets/img/brazoDUAL.jpg",
                 ),
               ],
             ),

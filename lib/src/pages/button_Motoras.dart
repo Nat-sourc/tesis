@@ -56,7 +56,6 @@ class _ButtonMotorasState extends State<ButtonMotoras> {
 
                       final taskArm = paciente?['taskArm'];
                       final taskMarcha = paciente?['taskmarcha'];
-                      final dualTask = paciente?['dualtask'];
 
                       if (taskMarcha == true) {
                         isTaskMarchaEnabled = false;
@@ -113,7 +112,6 @@ class _ButtonMotorasState extends State<ButtonMotoras> {
 
                       final taskArm = paciente?['taskArm'];
                       final taskMarcha = paciente?['taskmarcha'];
-                      final dualTask = paciente?['dualtask'];
 
                       
                       if (taskArm == true) {

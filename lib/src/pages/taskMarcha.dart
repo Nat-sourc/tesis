@@ -21,11 +21,19 @@ class TaskMarcha extends StatelessWidget {
               ],
             ),
             const TitleImg(),
+            const Row(
+              children: [
+                SizedBox(
+                  width: 30.0,
+                  height: 10.0,
+                )
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/img/marcha.png",
+                  "assets/img/marcha.jpg",
                 ),
               ],
             ),

@@ -170,7 +170,7 @@ class _TaskHandIzqState extends State<TaskHandIzq>
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                    minimumSize: const Size(180, 50),
+                    minimumSize: const Size(140, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -179,7 +179,7 @@ class _TaskHandIzqState extends State<TaskHandIzq>
                     "Comencemos",
                     style: TextStyle(
                       fontFamily: 'RobotoMono-Bold',
-                      fontSize: 20,
+                      fontSize: 16,
                     ),
                   ),
                 ),

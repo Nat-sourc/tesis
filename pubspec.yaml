@@ -107,7 +107,10 @@ flutter:
     - assets/img/fistPrueba.jpeg
     - assets/img/dedos.jpeg
     - assets/img/supinacion.jpeg
-    
+    - assets/img/brazoDUAL.jpg
+    - assets/img/brazo.jpg
+    - assets/img/marcha.jpg
+    - assets/img/marchaDual.jpg
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
