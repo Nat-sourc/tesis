@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:brainFit/src/providers/play_audio_provider.dart';
 import 'package:brainFit/src/providers/record_audio_provider.dart';
 import 'package:brainFit/src/pages/record_and_play_audio.dart';
-
+import 'package:brainFit/src/pages/button_Cognitivas.dart';
 
 class AudioTaskCogni extends StatelessWidget {
   const AudioTaskCogni({Key? key}) : super(key: key);
@@ -38,7 +38,7 @@ class AudioTaskCogni extends StatelessWidget {
         "/cameraDual": (context) => const CameraDualTask(),
         "/videoDual": (context) => const VideoDualTask(),
         "/uploadDual": (context) => const UploadVideoDual(),
-        "/ButtonCognitivas": (context) => const ButtonCognitivas(),},
+        "/ButtonCognitivas": (context) => const ButtonCognitivas(), },
       ),
     );
   }

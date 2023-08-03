@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:brainFit/src/providers/play_audio_provider.dart';
 import 'package:brainFit/src/providers/record_audio_provider.dart';
 import 'package:brainFit/src/pages/record_and_play_audio.dart';
-
+import 'package:brainFit/src/pages/button_Cognitivas.dart';
 
 class AudioTask extends StatelessWidget {
   const AudioTask({Key? key}) : super(key: key);
