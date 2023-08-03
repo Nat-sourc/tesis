@@ -242,7 +242,7 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
       child: ElevatedButton(
         onPressed: () {
           updateTaskAudio();
-          Navigator.pushNamed(context, '/buttonsTasks',
+          Navigator.pushNamed(context, '/ButtonCognitivas',
             arguments: widget.parameterValue);
           }, // Asigna una función aquí
         style: ElevatedButton.styleFrom(

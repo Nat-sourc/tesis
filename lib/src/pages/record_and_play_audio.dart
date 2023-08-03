@@ -71,7 +71,7 @@ class _RecordAndPlayScreenState extends State<RecordAndPlayScreen> {
                 ElevatedButton(
                     onPressed: () {
                       updateTaskAudio();
-                      Navigator.of(context).pushNamed("/buttonsTasks",
+                      Navigator.of(context).pushNamed("/ButtonCognitivas",
                         arguments: widget.parameterValue);
                     }, 
                     style: ElevatedButton.styleFrom(

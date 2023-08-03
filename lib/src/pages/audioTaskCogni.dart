@@ -37,7 +37,8 @@ class AudioTaskCogni extends StatelessWidget {
         "/taskDual": (context) => const TaskDual(),
         "/cameraDual": (context) => const CameraDualTask(),
         "/videoDual": (context) => const VideoDualTask(),
-        "/uploadDual": (context) => const UploadVideoDual(),},
+        "/uploadDual": (context) => const UploadVideoDual(),
+        "/ButtonCognitivas": (context) => const ButtonCognitivas(),},
       ),
     );
   }
