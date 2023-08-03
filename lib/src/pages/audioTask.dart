@@ -1,4 +1,3 @@
-
 import 'package:brainFit/src/pages/button_Task.dart';
 import 'package:brainFit/src/pages/cameraDualTask.dart';
 import 'package:brainFit/src/pages/cameraMarcha.dart';
@@ -14,12 +13,18 @@ import 'package:brainFit/src/providers/record_audio_provider.dart';
 import 'package:brainFit/src/pages/record_and_play_audio.dart';
 import 'package:brainFit/src/pages/button_Cognitivas.dart';
 
+import 'audioTaskCogni.dart';
+import 'button_Dual.dart';
+import 'button_Motoras.dart';
+import 'listPatient.dart';
+
 class AudioTask extends StatelessWidget {
   const AudioTask({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String? parameterValue = ModalRoute.of(context)?.settings.arguments as String?;
+    final String? parameterValue =
+        ModalRoute.of(context)?.settings.arguments as String?;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => RecordAudioProvider()),
@@ -29,17 +34,23 @@ class AudioTask extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Grabadora de voz',
         home: RecordAndPlayScreen(parameterValue: parameterValue),
-        routes: {"/buttonsTasks": (context) => const ButtonTaskDualTask(),
-        "/taskMarcha": (context) => const TaskMarcha(),
-        "/cameraMarcha": (context) => const CameraMarcha(),
-        "/videoMarcha": (context) => const VideoMarcha(),
-        "/taskDual": (context) => const TaskDual(),
-        "/cameraDual": (context) => const CameraDualTask(),
-        "/videoDual": (context) => const VideoDualTask(),
-        "/uploadDual": (context) => const UploadVideoDual(),
-        "/ButtonCognitivas": (context) => const ButtonCognitivas(),},
+        routes: {
+          "/buttonsTasks": (context) => const ButtonTaskDualTask(),
+          "/taskMarcha": (context) => const TaskMarcha(),
+          "/cameraMarcha": (context) => const CameraMarcha(),
+          "/videoMarcha": (context) => const VideoMarcha(),
+          "/taskDual": (context) => const TaskDual(),
+          "/cameraDual": (context) => const CameraDualTask(),
+          "/videoDual": (context) => const VideoDualTask(),
+          "/uploadDual": (context) => const UploadVideoDual(),
+          "/ButtonCognitivas": (context) => const ButtonCognitivas(),
+          "/ButtonMotoras": (context) => const ButtonMotoras(),
+          "/ButtonDual": (context) => const ButtonDual(),
+          "/audioTaskCogni": (context) => const AudioTaskCogni(),
+          "/audioTask": (context) => const AudioTask(),
+          "/listPatient": (context) => const ListPatient(),
+        },
       ),
     );
   }
 }
- 
