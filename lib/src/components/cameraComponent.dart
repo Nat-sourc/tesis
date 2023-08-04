@@ -802,7 +802,6 @@ class _CameraComponentState extends State<CameraComponent>
     }
   }
 
-  
   void onTakePictureButtonPressed() {
     takePicture().then((XFile? file) {
       if (mounted) {
@@ -817,13 +816,20 @@ class _CameraComponentState extends State<CameraComponent>
       }
     });
   }
-  Future<void> calibrateCamera(CameraController cameraController, BuildContext context) async {
+
+  Future<void> calibrateCamera(
+      CameraController cameraController, BuildContext context) async {
     int countdown = 5;
+
+    if (context == null) {
+      print('Error: The context is null. Aborting calibration.');
+      return;
+    }
 
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return Dialog(
           child: Padding(
             padding: EdgeInsets.all(20.0),
@@ -840,7 +846,7 @@ class _CameraComponentState extends State<CameraComponent>
       },
     );
 
-  Timer.periodic(Duration(seconds: 1), (timer) async {
+    Timer.periodic(Duration(seconds: 1), (timer) async {
       countdown--;
 
       if (countdown == 0) {
@@ -852,7 +858,7 @@ class _CameraComponentState extends State<CameraComponent>
         showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (BuildContext context) {
+          builder: (BuildContext dialogContext) {
             return Dialog(
               child: Padding(
                 padding: EdgeInsets.all(20.0),
@@ -872,7 +878,8 @@ class _CameraComponentState extends State<CameraComponent>
     });
   }
 
-  Future<void> capturePhoto(CameraController cameraController, BuildContext context) async {
+  Future<void> capturePhoto(
+      CameraController cameraController, BuildContext context) async {
     final String? idPaciente = widget.parameterValue;
 
     if (cameraController.value.isInitialized) {
@@ -898,8 +905,6 @@ class _CameraComponentState extends State<CameraComponent>
       int id = await archivoRepo.insert(archivo);
       print("IDENTIFIER: " + id.toString());
     }
-
-    
   }
 
   void onFlashModeButtonPressed() {
@@ -998,13 +1003,16 @@ class _CameraComponentState extends State<CameraComponent>
         setState(() {});
       }
       if (file != null) {
-        String additionalText = (widget.nameTask ?? ''); // Texto adicional que deseas agregar al nombre del video
-        String modifiedFileName = '$additionalText${file.name}'; // Nuevo nombre del archivo con el texto adicional
+        String additionalText = (widget.nameTask ??
+            ''); // Texto adicional que deseas agregar al nombre del video
+        String modifiedFileName =
+            '$additionalText${file.name}'; // Nuevo nombre del archivo con el texto adicional
 
         showInSnackBar('Video recorded to ${file.path}');
-        await guardarRegistro(file.path,modifiedFileName);
+        await guardarRegistro(file.path, modifiedFileName);
         if (widget.onStopButtonPressed != null) {
-          widget.onStopButtonPressed!(); // Llamada a la función en CameraBradicinesia
+          widget
+              .onStopButtonPressed!(); // Llamada a la función en CameraBradicinesia
         }
         videoFile = file;
         _startVideoPlayer();
@@ -1012,44 +1020,40 @@ class _CameraComponentState extends State<CameraComponent>
     });
   }
 
-
   Future<void> guardarRegistro(String filePath, String additionalText) async {
     ArchivoRepo archivoRepo = ArchivoRepo();
-    
+
     // Obtener el nombre original del archivo
     String originalFileName = path.basename(filePath);
-    
+
     // Agregar el texto adicional al nombre del archivo
     String modifiedFileName = '$additionalText$originalFileName';
-    
+
     // Obtener la ruta del directorio de caché
     Directory cacheDirectory = await path_provider.getTemporaryDirectory();
-    
+
     // Construir la nueva ruta del archivo con el directorio de caché y el nombre modificado
     String newFilePath = path.join(cacheDirectory.path, modifiedFileName);
-    
+
     // Mover el archivo a la nueva ruta
     File file = File(filePath);
     await file.rename(newFilePath);
-    
+
     // Obtener la fecha y hora actual
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy').format(now);
-    
+
     ArchivoDB archivo = ArchivoDB(
-      idPaciente: widget.parameterValue,
-      idDoctor: 0,
-      path: newFilePath,
-      fecha: formattedDate,
-      estado: 0
-    );
-    
+        idPaciente: widget.parameterValue,
+        idDoctor: 0,
+        path: newFilePath,
+        fecha: formattedDate,
+        estado: 0);
+
     int id = await archivoRepo.insert(archivo);
     print("IDENTIFICADOR: " + id.toString());
     return;
   }
-
-
 
   Future<void> onPausePreviewButtonPressed() async {
     final CameraController? cameraController = controller;
@@ -1281,6 +1285,7 @@ class CameraApp extends StatelessWidget {
 }
 
 List<CameraDescription> _cameras = <CameraDescription>[];
+
 class CountdownText extends StatelessWidget {
   final int countdown;
 
@@ -1291,5 +1296,3 @@ class CountdownText extends StatelessWidget {
     return Text('Calibrando en $countdown segundos...');
   }
 }
-
-
