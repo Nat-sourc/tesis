@@ -117,7 +117,7 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
   _indicaciones() {
     return const Center(
         child: Text(
-                    "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Animales que inicien por la letra A.",
+                    "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Palabras que inicien por la letra A.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
