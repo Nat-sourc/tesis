@@ -92,11 +92,9 @@ class _ListPatientState extends State<ListPatient> {
                               final isSelected = idPatient == selectedCedula;
                               final completeBradicinesis =
                                   paciente?['completeBradicinesis'];
-                              final completeTask =
-                                  paciente?['completetask'];
+                              final completeTask = paciente?['completetask'];
 
-                              final formattedDate =
-                                  _formatDate(fechaCreacion);
+                              final formattedDate = _formatDate(fechaCreacion);
 
                               return GestureDetector(
                                 onTap: () {
@@ -182,11 +180,11 @@ class _ListPatientState extends State<ListPatient> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: isBradicinesisButtonEnabled &&
-                            selectedCedula != null
-                        ? () => showPantallaBradicinesia(
-                            "/buttonBradicinesis", selectedCedula!)
-                        : null,
+                    onPressed:
+                        isBradicinesisButtonEnabled && selectedCedula != null
+                            ? () => showPantallaBradicinesia(
+                                "/buttonBradicinesis", selectedCedula!)
+                            : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 0, 191, 166),
                       minimumSize: const Size(150, 50),
@@ -195,7 +193,7 @@ class _ListPatientState extends State<ListPatient> {
                       ),
                     ),
                     child: const Text(
-                      "Bradicinesis",
+                      "Bradicinesia",
                       style: TextStyle(
                         fontFamily: 'RobotoMono-Bold',
                         fontSize: 18,
@@ -204,8 +202,7 @@ class _ListPatientState extends State<ListPatient> {
                   ),
                   const SizedBox(width: 10.0),
                   ElevatedButton(
-                    onPressed: isDualTaskButtonEnabled &&
-                            selectedCedula != null
+                    onPressed: isDualTaskButtonEnabled && selectedCedula != null
                         ? () => showPantallaBradicinesia(
                             "/buttonsTasks", selectedCedula!)
                         : null,
@@ -225,6 +222,26 @@ class _ListPatientState extends State<ListPatient> {
                     ),
                   ),
                 ],
+              ),
+              const Row(
+                children: [
+                  SizedBox(
+                    width: 10.0,
+                    height: 20.0,
+                  )
+                ],
+              ),
+              ElevatedButton(
+                onPressed: () => {showPantalla("/principalPage")},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+                  minimumSize: const Size(100, 50),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                child: const Text("Atrás",
+                    style:
+                        TextStyle(fontFamily: 'RobotoMono-Bold', fontSize: 20)),
               ),
             ],
           ),
@@ -277,5 +294,9 @@ class _ListPatientState extends State<ListPatient> {
 
   void showPantallaBradicinesia(String ruta, String? idPaciente) {
     Navigator.of(context).pushNamed(ruta, arguments: idPaciente);
+  }
+
+  void showPantalla(String ruta) {
+    Navigator.of(context).pushNamed(ruta);
   }
 }

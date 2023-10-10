@@ -58,73 +58,71 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: ((context) => 
-            CameraBloc(CameraState()))) 
-      ],
-      child: MaterialApp(
-      title: "BrainFit",
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'RobotoMono',
-      ),
-      initialRoute: "/",
-      routes: {
-        "/": (context) => const Home(),
-        "/bradicinesia": (context) => const Bradicinesia(),
-        "/taskFist": (context) => const TaskFist(),
-        "/camera": (context) => const CameraComponent(),
-        "/cameraScreen": (context) => CameraScreen(),
-        "/playVideo": (context) => const VideoApp(),
-        "/taskFingers": (context) => const TaskFingers(),
-        "/taskHand": (context) => const TaskHand(),
-        "/login": (context) => const LoginPage(),
-        "/listVideo": (context) => const ListVideos(),
-        "/principalPage": (context) => const principal(),
-        "/createPatient": (context) => const CreatePatient(),
-        "/listPatient": (context) => const ListPatient(),
-        "/cameraBradicinesia": (context) => const CameraBradicinesia(),
-        "/cameraFingers": (context) => const CameraFingers(),
-        "/cameraHand": (context) => const CameraHand(),
-        "/videoBradicinesia": (context) => const VideoBradicinesia(),
-        "/videoFingers": (context) => const VideoFingers(),
-        "/videoHand": (context) => const VideoHand(),
-        "/uploadVideoBradicinesis": (context) => const UploadVideo(),
-        "/buttonsTasks": (context) => const ButtonTaskDualTask(),
-        "/taskMarcha": (context) => const TaskMarcha(),
-        "/cameraMarcha": (context) => const CameraMarcha(),
-        "/videoMarcha": (context) => const VideoMarcha(),
-        "/taskDual": (context) => const TaskDual(),
-        "/taskDualArm": (context) => const TaskDualArm(),
-        "/cameraDual": (context) => const CameraDualTask(),
-        "/cameraDualArm": (context) => const CameraDualTaskArm(),
-        "/videoDual": (context) => const VideoDualTask(),
-        "/videoDualArm": (context) => const VideoDualTaskArm(),
-        "/uploadDual": (context) => const UploadVideoDual(),
-        "/audioTask": (context) => const AudioTask(),
-        "/buttonBradicinesis": (context) => const ButtonBradicinesis(),
-        "/taskHandIzq": (context) => const TaskHandIzq(),
-        "/cameraHandIzq": (context) => const CameraHandIzq(),
-        "/videoHandIzq": (context) => const VideoHandIzq(),
-        "/taskFistIzq": (context) => const TaskFistIzq(),
-        "/cameraBradicinesiaIzq": (context) => const CameraBradicinesiaIzq(),
-        "/videoBradicinesiaIzq": (context) => const VideoBradicinesiaIzq(),
-        "/taskFingersIzq": (context) => const TaskFingersIzq(),
-        "/cameraFingersIzq": (context) => const CameraFingersIzq(),
-        "/videoFingersIzq": (context) => const VideoFingersIzq(),
-        "/ButtonMotoras": (context) => const ButtonMotoras(),
-        "/TaskArm": (context) => const TaskArm(),
-        "/CameraArm": (context) => const CameraArm(),
-        "/VideoArm": (context) => const VideoArm(),
-        "/ButtonCognitivas": (context) => const ButtonCognitivas(),
-        "/ButtonDual": (context) => const ButtonDual(),
-        "/audioTaskCogni": (context) => const AudioTaskCogni(),
-        
-        
-        //Button Cognitivas
-      },
-    ));
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: ((context) => CameraBloc(CameraState())))
+        ],
+        child: MaterialApp(
+          title: "BrainFit",
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            fontFamily: 'RobotoMono',
+          ),
+          initialRoute: "/",
+          routes: {
+            "/": (context) => const principal(),
+            "/bradicinesia": (context) => const Bradicinesia(),
+            "/taskFist": (context) => const TaskFist(),
+            "/camera": (context) => const CameraComponent(),
+            "/cameraScreen": (context) => CameraScreen(),
+            "/playVideo": (context) => const VideoApp(),
+            "/taskFingers": (context) => const TaskFingers(),
+            "/taskHand": (context) => const TaskHand(),
+            "/login": (context) => const LoginPage(),
+            "/listVideo": (context) => const ListVideos(),
+            "/principalPage": (context) => const principal(),
+            "/createPatient": (context) => const CreatePatient(),
+            "/listPatient": (context) => const ListPatient(),
+            "/cameraBradicinesia": (context) => const CameraBradicinesia(),
+            "/cameraFingers": (context) => const CameraFingers(),
+            "/cameraHand": (context) => const CameraHand(),
+            "/videoBradicinesia": (context) => const VideoBradicinesia(),
+            "/videoFingers": (context) => const VideoFingers(),
+            "/videoHand": (context) => const VideoHand(),
+            "/uploadVideoBradicinesis": (context) => const UploadVideo(),
+            "/buttonsTasks": (context) => const ButtonTaskDualTask(),
+            "/taskMarcha": (context) => const TaskMarcha(),
+            "/cameraMarcha": (context) => const CameraMarcha(),
+            "/videoMarcha": (context) => const VideoMarcha(),
+            "/taskDual": (context) => const TaskDual(),
+            "/taskDualArm": (context) => const TaskDualArm(),
+            "/cameraDual": (context) => const CameraDualTask(),
+            "/cameraDualArm": (context) => const CameraDualTaskArm(),
+            "/videoDual": (context) => const VideoDualTask(),
+            "/videoDualArm": (context) => const VideoDualTaskArm(),
+            "/uploadDual": (context) => const UploadVideoDual(),
+            "/audioTask": (context) => const AudioTask(),
+            "/buttonBradicinesis": (context) => const ButtonBradicinesis(),
+            "/taskHandIzq": (context) => const TaskHandIzq(),
+            "/cameraHandIzq": (context) => const CameraHandIzq(),
+            "/videoHandIzq": (context) => const VideoHandIzq(),
+            "/taskFistIzq": (context) => const TaskFistIzq(),
+            "/cameraBradicinesiaIzq": (context) =>
+                const CameraBradicinesiaIzq(),
+            "/videoBradicinesiaIzq": (context) => const VideoBradicinesiaIzq(),
+            "/taskFingersIzq": (context) => const TaskFingersIzq(),
+            "/cameraFingersIzq": (context) => const CameraFingersIzq(),
+            "/videoFingersIzq": (context) => const VideoFingersIzq(),
+            "/ButtonMotoras": (context) => const ButtonMotoras(),
+            "/TaskArm": (context) => const TaskArm(),
+            "/CameraArm": (context) => const CameraArm(),
+            "/VideoArm": (context) => const VideoArm(),
+            "/ButtonCognitivas": (context) => const ButtonCognitivas(),
+            "/ButtonDual": (context) => const ButtonDual(),
+            "/audioTaskCogni": (context) => const AudioTaskCogni(),
+
+            //Button Cognitivas
+          },
+        ));
   }
 }
