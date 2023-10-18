@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: "/",
           routes: {
-            "/": (context) => const principal(),
+            "/": (context) => const Home(),
             "/bradicinesia": (context) => const Bradicinesia(),
             "/taskFist": (context) => const TaskFist(),
             "/camera": (context) => const CameraComponent(),

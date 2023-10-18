@@ -15,7 +15,8 @@ class RecordAndPlayScreenCogni extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<RecordAndPlayScreenCogni> createState() => _RecordAndPlayScreenCogniState();
+  State<RecordAndPlayScreenCogni> createState() =>
+      _RecordAndPlayScreenCogniState();
 }
 
 class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
@@ -69,26 +70,26 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
                 !_playProvider.isSongPlaying)
               //_nextButton(),
               ElevatedButton(
-                    onPressed: () {
-                      updateTaskAudio();
-                      Navigator.of(context).pushNamed("/ButtonCognitivas",
-                        arguments: widget.parameterValue);
-                    }, 
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 0, 191, 166),
-                      minimumSize: const Size(350, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    child: const Text(
-                      "Siguiente",
-                      style: TextStyle(
-                        fontFamily: 'RobotoMono-Bold',
-                        fontSize: 20,
-                      ),
-                    ),
+                onPressed: () {
+                  updateTaskAudio();
+                  Navigator.of(context).pushNamed("/ButtonCognitivas",
+                      arguments: widget.parameterValue);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 0, 191, 166),
+                  minimumSize: const Size(350, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
+                ),
+                child: const Text(
+                  "Siguiente",
+                  style: TextStyle(
+                    fontFamily: 'RobotoMono-Bold',
+                    fontSize: 20,
+                  ),
+                ),
+              ),
           ],
         ),
       ),
@@ -116,18 +117,17 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
 
   _indicaciones() {
     return const Center(
-        child: Text(
-                    "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Palabras que inicien por la letra A.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'RobotoMono-Bold',
-                      fontSize: 18,
-                    ),
-                  ),
-     );
+      child: Text(
+        "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Palabras que inicien por la letra A",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.black,
+          fontFamily: 'RobotoMono-Bold',
+          fontSize: 18,
+        ),
+      ),
+    );
   }
-  
 
   _playTime() {
     final duration = Duration.zero;
@@ -139,7 +139,10 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
       child: Text(
         'Audio grabado',
         style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w700, fontFamily: 'RobotoMono-Bold',color: Color.fromARGB(255, 1, 1, 1)),
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'RobotoMono-Bold',
+            color: Color.fromARGB(255, 1, 1, 1)),
       ),
     );
   }
@@ -152,7 +155,7 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
     if (_recordProvider.isRecording) {
       return InkWell(
         onTap: () async => await _recordProviderWithoutListener
-            .stopRecordingCogni(widget.parameterValue!),
+            .stopRecording(widget.parameterValue!),
         child: RippleAnimation(
           repeat: true,
           color: Color.fromARGB(255, 0, 191, 166),
@@ -243,8 +246,8 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
         onPressed: () {
           updateTaskAudio();
           Navigator.pushNamed(context, '/ButtonCognitivas',
-            arguments: widget.parameterValue);
-          }, // Asigna una función aquí
+              arguments: widget.parameterValue);
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromARGB(255, 0, 191, 166),
           minimumSize: const Size(50, 50),
@@ -259,8 +262,6 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
       ),
     );
   }
-
-
 
   Future<void> updateTaskAudio() async {
     try {
