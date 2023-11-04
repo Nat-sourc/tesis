@@ -118,7 +118,7 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
   _indicaciones() {
     return const Center(
       child: Text(
-        "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Palabras que inicien por la letra A",
+        "Acerque el mircrofono al paciente, al oprimir el botón grabe la respuesta de: Palabras que sean animales",
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.black,
@@ -155,7 +155,7 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
     if (_recordProvider.isRecording) {
       return InkWell(
         onTap: () async => await _recordProviderWithoutListener
-            .stopRecording(widget.parameterValue!),
+            .stopRecordingCogni(widget.parameterValue!),
         child: RippleAnimation(
           repeat: true,
           color: Color.fromARGB(255, 0, 191, 166),

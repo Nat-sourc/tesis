@@ -23,6 +23,7 @@ class RecordAudioProvider extends ChangeNotifier {
   }
 
   recordVoice() async {
+    print("llego");
     final _isPermitted = (await PermissionManagement.recordingPermission()) &&
         (await PermissionManagement.storagePermission());
 

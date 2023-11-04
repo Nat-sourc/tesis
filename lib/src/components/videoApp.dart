@@ -9,8 +9,8 @@ import 'package:video_player/video_player.dart';
 class VideoApp extends StatefulWidget {
   final VoidCallback? navegate;
   final VoidCallback? navegateNew;
-  /// Default Constructor
-  const VideoApp({Key? key, this.navegate,this.navegateNew}) : super(key: key);
+
+  const VideoApp({Key? key, this.navegate, this.navegateNew}) : super(key: key);
 
   @override
   State<VideoApp> createState() => _VideoAppState();
@@ -22,21 +22,17 @@ class _VideoAppState extends State<VideoApp> {
   @override
   void initState() {
     super.initState();
-    final File file = File("");
-      _controller = VideoPlayerController.file(file)
+    _initializeController();
+  }
+
+  void _initializeController() async {
+    String lastVideoPath = await getLastVideo();
+    if (lastVideoPath.isNotEmpty) {
+      _controller = VideoPlayerController.file(File(lastVideoPath))
         ..initialize().then((_) {
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
           setState(() {});
         });
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      String name = await getLastVideo();
-      final File file = File(name);
-      _controller = VideoPlayerController.file(file)
-        ..initialize().then((_) {
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-          setState(() {});
-        });
-    });
+    }
   }
 
   @override
@@ -69,8 +65,7 @@ class _VideoAppState extends State<VideoApp> {
             children: [
               ElevatedButton(
                 onPressed: () async {
-                  //await iniciarCamara();
-                  // ignore: use_build_context_synchronously
+                  deleteLastVideo();
                   widget.navegateNew!();
                 },
                 style: ElevatedButton.styleFrom(
@@ -89,8 +84,6 @@ class _VideoAppState extends State<VideoApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  //await iniciarCamara();
-                  // ignore: use_build_context_synchronously
                   widget.navegate!();
                 },
                 style: ElevatedButton.styleFrom(
@@ -124,11 +117,33 @@ class _VideoAppState extends State<VideoApp> {
   }
 
   Future<String> getLastVideo() async {
-    String nameUltimoVideo = "";
+    String lastVideoPath = "";
     ArchivoRepo archivoRepo = ArchivoRepo();
     List<ArchivoDB> lista = await archivoRepo.getAll();
-    nameUltimoVideo = lista.last.path.toString();
-    return nameUltimoVideo;
+    if (lista.isNotEmpty) {
+      lastVideoPath = lista.last.path.toString();
+    }
+    return lastVideoPath;
+  }
+
+  Future<void> deleteLastVideo() async {
+    String lastVideoPath = await getLastVideo();
+    if (lastVideoPath.isNotEmpty) {
+      try {
+        File lastVideoFile = File(lastVideoPath);
+        await lastVideoFile.delete();
+        print("llege");
+        // Elimina la entrada de la base de datos
+        ArchivoRepo archivoRepo = ArchivoRepo();
+        List<ArchivoDB> lista = await archivoRepo.getAll();
+        if (lista.isNotEmpty) {
+          await archivoRepo.delete(
+              lista.last); // Pasamos el objeto ArchivoDB en lugar de un entero
+        }
+      } catch (e) {
+        print("Error al eliminar el último video: $e");
+      }
+    }
   }
 
   @override

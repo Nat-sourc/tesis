@@ -748,7 +748,7 @@ class _CameraComponentState extends State<CameraComponent>
 
     try {
       await cameraController.initialize();
-      await calibrateCamera(cameraController, context);
+      
       await Future.wait(<Future<void>>[
         // The exposure mode is currently not supported on the web.
         ...!kIsWeb
@@ -817,66 +817,7 @@ class _CameraComponentState extends State<CameraComponent>
     });
   }
 
-  Future<void> calibrateCamera(
-      CameraController cameraController, BuildContext context) async {
-    int countdown = 5;
-
-    if (context == null) {
-      print('Error: The context is null. Aborting calibration.');
-      return;
-    }
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext dialogContext) {
-        return Dialog(
-          child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 16.0),
-                CountdownText(countdown: countdown),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-
-    Timer.periodic(Duration(seconds: 1), (timer) async {
-      countdown--;
-
-      if (countdown == 0) {
-        timer.cancel();
-        Navigator.of(context).pop();
-        await capturePhoto(cameraController, context);
-      } else {
-        Navigator.of(context).pop();
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext dialogContext) {
-            return Dialog(
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 16.0),
-                    CountdownText(countdown: countdown),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      }
-    });
-  }
+  
 
   Future<void> capturePhoto(
       CameraController cameraController, BuildContext context) async {
@@ -1286,13 +1227,4 @@ class CameraApp extends StatelessWidget {
 
 List<CameraDescription> _cameras = <CameraDescription>[];
 
-class CountdownText extends StatelessWidget {
-  final int countdown;
 
-  const CountdownText({required this.countdown});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('Calibrando en $countdown segundos...');
-  }
-}
