@@ -54,6 +54,19 @@ class RecordAudioProvider extends ChangeNotifier {
 
     _isRecording = false;
     _afterRecordingFilePath = _audioFilePath ?? '';
+
+    // Añadir "Cogni" al nombre del archivo
+    String? fileName = _audioFilePath?.split('/').last;
+    String? directoryPath = _audioFilePath?.replaceAll('/$fileName', '');
+    String? modifiedFileName = '$parameterValue-$fileName';
+    String? modifiedFilePath = '$directoryPath/$modifiedFileName';
+
+    // Renombrar el archivo de audio
+    if (_audioFilePath != null) {
+      await File(_audioFilePath).rename(modifiedFilePath);
+      _audioFilePath = modifiedFilePath;
+    }
+
     String? path = _audioFilePath;
     guardarRegistro(path!, parameterValue);
     notifyListeners();
@@ -75,7 +88,7 @@ class RecordAudioProvider extends ChangeNotifier {
     // Añadir "Cogni" al nombre del archivo
     String? fileName = _audioFilePath?.split('/').last;
     String? directoryPath = _audioFilePath?.replaceAll('/$fileName', '');
-    String? modifiedFileName = 'Cogni_$fileName';
+    String? modifiedFileName = '$parameterValue-Cogni_$fileName';
     String? modifiedFilePath = '$directoryPath/$modifiedFileName';
 
     // Renombrar el archivo de audio
