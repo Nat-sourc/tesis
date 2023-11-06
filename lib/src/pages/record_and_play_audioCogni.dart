@@ -167,7 +167,7 @@ class _RecordAndPlayScreenCogniState extends State<RecordAndPlayScreenCogni> {
     }
 
     return InkWell(
-      onTap: () async => await _recordProviderWithoutListener.recordVoice(),
+      onTap: () async => await _recordProviderWithoutListener.recordVoiceCogni(widget.parameterValue!),
       child: _commonIconSection(),
     );
   }

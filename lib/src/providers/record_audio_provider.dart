@@ -22,7 +22,7 @@ class RecordAudioProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  recordVoice() async {
+  recordVoice(String parameterValue) async {
     print("llego");
     final _isPermitted = (await PermissionManagement.recordingPermission()) &&
         (await PermissionManagement.storagePermission());
@@ -33,7 +33,7 @@ class RecordAudioProvider extends ChangeNotifier {
 
     final _voiceDirPath = await StorageManagement.getAudioDir;
     final _voiceFilePath = StorageManagement.createRecordAudioPath(
-        dirPath: _voiceDirPath, fileName: 'DUAL');
+        dirPath: _voiceDirPath, fileName: parameterValue+'-DUAL');
 
     await _record.start(path: _voiceFilePath);
     _isRecording = true;
@@ -41,6 +41,26 @@ class RecordAudioProvider extends ChangeNotifier {
 
     showToast('Inicio grabación');
   }
+  recordVoiceCogni(String parameterValue) async {
+    print("llego");
+    final _isPermitted = (await PermissionManagement.recordingPermission()) &&
+        (await PermissionManagement.storagePermission());
+
+    if (!_isPermitted) return;
+
+    if (!(await _record.hasPermission())) return;
+
+    final _voiceDirPath = await StorageManagement.getAudioDir;
+    final _voiceFilePath = StorageManagement.createRecordAudioPath(
+        dirPath: _voiceDirPath, fileName: parameterValue+'-Cogni_DUAL');
+
+    await _record.start(path: _voiceFilePath);
+    _isRecording = true;
+    notifyListeners();
+
+    showToast('Inicio grabación');
+  }
+
 
   stopRecording(String parameterValue) async {
     String? _audioFilePath;
@@ -58,7 +78,7 @@ class RecordAudioProvider extends ChangeNotifier {
     // Añadir "Cogni" al nombre del archivo
     String? fileName = _audioFilePath?.split('/').last;
     String? directoryPath = _audioFilePath?.replaceAll('/$fileName', '');
-    String? modifiedFileName = '$parameterValue-$fileName';
+    String? modifiedFileName = '$fileName';
     String? modifiedFilePath = '$directoryPath/$modifiedFileName';
 
     // Renombrar el archivo de audio
@@ -88,13 +108,16 @@ class RecordAudioProvider extends ChangeNotifier {
     // Añadir "Cogni" al nombre del archivo
     String? fileName = _audioFilePath?.split('/').last;
     String? directoryPath = _audioFilePath?.replaceAll('/$fileName', '');
-    String? modifiedFileName = '$parameterValue-Cogni_$fileName';
+    String? modifiedFileName = '$fileName';
     String? modifiedFilePath = '$directoryPath/$modifiedFileName';
 
     // Renombrar el archivo de audio
     if (_audioFilePath != null) {
+      print("entro a");
+      print(modifiedFilePath);
       await File(_audioFilePath).rename(modifiedFilePath);
       _audioFilePath = modifiedFilePath;
+      print(_audioFilePath);
     }
 
     String? path = _audioFilePath;
